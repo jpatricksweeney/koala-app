@@ -1,0 +1,20 @@
+<nav>
+<ul class="pagination pagination-lg pg-darkgrey mb-0" ng-if="1 < pages.length || !autoHide">
+    <li ng-if="boundaryLinks" ng-class="{ disabled : pagination.current == 1 }">
+        <a style='line-height: 1.5;' href="" ng-click="setCurrent(1)">&laquo;</a>
+    </li>
+    <li ng-if="directionLinks" ng-class="{ disabled : pagination.current == 1 }">
+        <a style='line-height: 1.5;' href="" ng-click="setCurrent(pagination.current - 1)">&lsaquo;</a>
+    </li>
+    <li class='page-item' ng-repeat="pageNumber in pages track by tracker(pageNumber, $index)" ng-class="{ active : pagination.current == pageNumber, disabled : pageNumber == '...' }">
+        <a class='page-link' href="" ng-click="setCurrent(pageNumber)">{{ pageNumber }}</a>
+    </li>
+
+    <li ng-if="directionLinks" ng-class="{ disabled : pagination.current == pagination.last }">
+        <a style='line-height: 1.5;' href="" ng-click="setCurrent(pagination.current + 1)">&rsaquo;</a>
+    </li>
+    <li ng-if="boundaryLinks"  ng-class="{ disabled : pagination.current == pagination.last }">
+        <a style='line-height: 1.5;' href="" ng-click="setCurrent(pagination.last)">&raquo;</a>
+    </li>
+</ul>
+</nav>

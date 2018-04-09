@@ -1,0 +1,71 @@
+<span class="container-fluid" ng-controller="MainController">
+    <!-- Splash screen including full-page background image and banner messages (header title and message) -->
+    <div ng-show='company.header.on' id="bannersection" ng-loading="company.headertitle">
+        <div ng-show='company.headertitle || company.headermessage' class="bannercontent">
+            <h1>{{company.headertitle}}</h1>
+            <h2>{{company.headermessage}}</h2>
+        </div>
+    </div>           
+    
+    <!------------------------------------------------------------------------------------------->
+    <!-- All sections below are turned on/off via the "Features" tab in the Administrator page -->
+    <!------------------------------------------------------------------------------------------->
+        
+    <!-- Company description -- this content is completed by admin via TinyMCE editor -->
+    <section ng-show='company.description.on' id="main-description">
+        <div class='row'>
+            <div class='col-sm-12'>
+                <p class="text-center splash-text" ng-bind-html="company.homepagedescription | html"></p>
+            </div>
+        </div>       
+    </section>
+    
+    <div id="services-content" ng-if='company.services.on' ng-class="{'services-content-extra-margin' : !company.description.com}">
+        <div class="container-fluid">
+            <div class="row">
+
+                <div ng-show='company.search.on' class='col-sm-12 searchbox input-group' ng-class="{'mt-5': !company.description.on && !company.header.on}">
+                    <input class="form-control input-md mb-1" type="text" ng-model="searchquery" placeholder="search" data-toggle="tooltip" data-placement="bottom"> 
+                </div>
+
+                <div class='col-12'></div>
+
+                <div ng-show='company.services.on' ng-repeat='service in services | filter:searchquery' class='col-lg-4 col-md-6 card-deck mb-5'>
+                    <div class='card mb-3'>
+                        <a ng-href='#service-detail/{{service.servicecategory}}'> <img ng-src="{{service.picURL}}" class="img-fluid m-0" alt="{{service.servicecategory}}"> </a>
+                        <div class='card-block'>
+                            <h3 class='card-title text-uppercase'><a ng-href='#service-detail/{{service.servicecategory}}'>{{service.servicecategory}}</a></h3>
+                            <div class="card-text">
+                                <p class='text-muted' ng-bind-html="(service.description | limitTo:180 | html) + '...'"></p>
+                            </div>
+                        </div>
+                        <div class='card-footer'> <a ng-href='#service-detail/{{service.servicecategory}}' class="btn btn-elegant btn-md btn-block" role="button" aria-pressed="true">Book {{service.servicecategory | removelastchar}} {{company.menuservices | removelastchar}}</a> </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Gallery section -->
+    <section ng-show='company.gallery.on' id="main-gallery">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="text-center" style='margin-left: auto; margin-right: auto;'> <span ng-repeat='gallerypic in company.gallerypics'>
+                        <figure>
+                            <a href={{gallerypic.url}} data-fancybox="group" data-caption="">
+                            <img class="img-fluid rounded z-depth-3" ng-src={{gallerypic.url}} alt="" /></a>
+                        </figure>
+                    </span> </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Google Map -->
+    <div ng-show='company.map.on' ng-controller="ContactController">
+        <iframe id='google-map' style="width:100vw; height:50vh; position:relative;" ng-src="{{company.googlemapiframe}}" allowfullscreen></iframe>
+    </div>    
+    
+</span>
+
+
+

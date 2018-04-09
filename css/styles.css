@@ -1,0 +1,1353 @@
+/* GLOBAL STYLES
+-------------------------------------------------- */
+
+/* Custom, iPhone Retina - 320px
+/* Extra Small Devices, Phones - 480px
+/* Small Devices, Tablets - 768px
+/* Medium Devices, Desktops - 992px
+/* Large Devices, Wide Screens - 1200px
+-------------------------------------------------- */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-size: 20px;
+    font-family: Helvetica, Arial, "sans-serif"
+}
+
+#nav-company-name {font-size:22px; margin-top:14px;}
+#nav-company-logo { margin-top:-5px; height: 60px; width: auto;}
+
+#bannersection {
+    position: relative;
+    display: table;
+    width: 100%;
+    height: 100vh;
+    background-position: center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+    text-align: center;
+    margin-bottom:60px;
+}
+.bannercontent {
+    display:inline-block;
+    width: 60%;
+    margin-top: 36vh;
+    vertical-align: middle;
+    color: #FFF;
+    text-align: center;
+    font-size: 18px;
+    font-weight: normal;
+    padding: 20px 3%;
+    background-color: rgba(0,0,0,0.48);
+    border-radius: 5px;
+}
+#bannersection h1 {font-size:45px;}
+
+@media (max-width: 600px) {
+    .bannercontent {margin-top:25vh; width: 90%;}
+    #bannersection h1 {font-size: 36px;}
+}
+
+.service-list {
+    margin-bottom: 100px;
+    font-weight: 600;
+    font-size: 28px;
+}
+
+.service-list span {
+    margin-left:14px;
+    margin-right:14px;
+}
+
+@media (max-width: 700px) {
+    #svclist {font-size:24px;}
+    .service-list span {
+        margin-left:7px;
+        margin-right:7px;
+    }
+}
+
+#main-description {margin-top:60px; margin-bottom:70px; margin-left:20px; margin-right:20px;}
+
+#main-services-section {margin-top:10px; margin-bottom:100px;}
+#main-services-section h1 {text-align: center; margin:40px; font-size:48px;}
+#main-services-section a:hover {color: gainsboro;}
+#main-services-section a:link {color: #000;}
+#main-specialists-section a:hover {color: #000;}
+#main-specialists-section a:link {color: #000;}
+
+#main-specialists-section {margin-bottom:100px;}
+#main-specialists-section h1 {text-align: center; margin:40px; font-size:48px;}
+
+#main-services-section hr {margin:auto; margin-bottom:60px;}
+#main-specialists-section hr {margin:auto; margin-bottom:60px;}
+
+
+/* SERVICE DETAIL PAGE */
+#service-detail-page {margin-top:80px;}
+#service-detail-page h3 {margin-top:40px;}
+#service-detail-section {margin-bottom:-80px;}
+#service-detail-page-specialists {margin-bottom:80px; padding-bottom:40px;}
+#service-detail-query {margin-top:60px;}
+
+#specialist-detail {margin-top:100px; margin-left:20px; margin-right:20px; margin-bottom: 200px;}
+#specialist-detail h4 {font-weight: 100;}
+
+#specialist-detail img {margin-left:-14px;}
+
+
+#specialist-detail-personal-info {margin-top:-8px;}
+
+@media (max-width:1000px) {
+    #specialist-detail-img { margin-left:14px; margin-bottom:20px;}
+}
+
+#specialist-detail button {
+    border-radius: 0px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 80px;
+    padding-left: 80px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 18px;
+    margin-left: -2px;
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
+#specialist-detail .button:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    color: #fff;
+}
+
+#specialist-email-website {font-size: 18px;}
+
+#specialist-contact {font-size: 26px; text-align:center; margin:40px;}
+
+#admin-page {padding-top:120px;}
+#admin-page p {margin-top:20px; font-size:18px;}
+#admin-page h3 {margin-top:20px;}
+#admin-page h4 {margin-top:80px;}
+#admin-page li {font-size: 16px;}
+#admin-page th, #admin-page td {font-size: 14px;}
+
+#profile-page {padding-top:120px; margin-bottom: 200px;}
+#profile-page p {margin-top:20px; font-size:18px;}
+#profile-page h3 {margin-top:20px;}
+#profile-page th, #profile-page td {font-size: 14px;}
+
+#account-page {padding-top:120px; margin-bottom: 200px;}
+#account-page p {margin-top:20px; font-size:18px;}
+#account-page h3 {margin-top:20px;}
+#account-page h4 {margin-top:80px;}
+#account-page li {font-size: 16px;}
+#account-page th, #account-page td {font-size: 14px;}
+
+#appointment-page {padding-top:80px; margin-bottom:200px;}
+#appointment-page h1 {padding-top:80px;}
+#statusmessage {margin-bottom:40px;}
+
+#displayProf {margin-bottom:40px;}
+
+.table th, .table td { 
+    border-top: none !important; 
+    font-size: 20px;
+ }
+
+
+/* .fa {
+  padding: 20px;
+  font-size: 30px;
+  width: 50px;
+  text-align: center;
+  text-decoration: none;
+  margin: 20px -1px;
+} */
+
+/* Add a hover effect if you want */
+.fa:hover {
+    opacity: 0.7;
+    color:white;
+    text-decoration: none;
+}
+
+/* Set a specific color for each brand */
+
+/* Facebook */
+.fa-facebook {
+    background: #3B5998;
+    color: white;
+}
+
+/* Twitter */
+.fa-twitter {
+    background: #55ACEE;
+    color: white;
+}
+
+.fa-instagram {
+  background: #125688;
+  color: white;
+}
+
+.fa-google {
+  background: #dd4b39;
+  color: white;
+}
+
+.fa-envelope {
+  background: black;
+  color: white;
+}
+
+.fa-globe {
+  background: black;
+  color: white;
+}
+
+
+.light-text {font-weight:100;}
+
+#services-section h1 {
+    font-weight: 900;
+    font-size: 50px;   
+}
+
+#services-section p {
+    font-weight: 400;
+    font-size: 16px;  
+}
+
+#services-section a {
+    margin-left: 20px;
+    font-weight: 400;
+    font-size: 18px;
+}
+
+#services-section h2 {
+    font-weight: 900;
+    font-size: 30px;
+}
+
+.services-jumbotron {
+    background-color: #f0f0f0;
+    overflow:scroll;
+    padding-bottom:70px;
+    margin-left:-20px;
+    margin-right:-20px;
+}
+
+/* PRODUCT DETAIL PAGE */
+#product-detail-page {margin-top:100px; margin-bottom:300px;}
+
+
+.jumbotron {
+    height: 550px;
+    background-color: #f0f0f0;
+}
+
+
+.carousel-indicators li {
+    border-color: #05c9a2;
+}
+.carousel-indicators li.active {
+    background-color: #05c9a2;
+}
+
+.carousel-indicators {
+    position: absolute;
+    bottom: -50px;
+    /* left: 0; */
+    z-index: 15;
+    width: 60%;
+    list-style: none;
+    text-align: center;
+}
+
+.splash-text {
+    margin-top: 35px;
+    font-family: 'Lato', serif;
+    font-weight: 400;
+    font-size: 18px;
+    color: #121420;
+}
+
+#perfect-specialist {
+    background-color: #3b3e4d;
+}
+
+#perfect-specialist h1 {
+    margin-top: 40px;
+    font-family: 'Lato', serif;
+    font-weight: 100;
+    font-size: 50px;
+    color: #07efc1;
+}
+
+#perfect-specialist p {
+    font-family: 'Lato', serif;
+    font-weight: 400;
+    font-size: 16px;
+    color: #fff;
+    line-height: 2.0;
+}
+
+#perfect-specialist button {
+    background-color: #07EFC1; 
+    border-radius: 0px;
+    color: #121420;
+    width: 80%;
+    padding: 15px 5px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 22px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 400; 
+    letter-spacing: 5px;
+}
+
+@media (max-width: 440px) {
+    #perfect-specialist .button {font-size:18px;}
+}
+
+#perfect-specialist .button:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    background-color: #121420;
+    color: #fff;
+    border: solid 1px #07efc1;
+}
+
+/* Landscape phones and portrait tablets */
+@media (max-width: 1000px) {
+    #perfect-specialist-verbage{ margin: 20px;}
+    #perfect-specialist button {width:100%; margin-top:20px; margin-bottom:40px;}
+}
+@media (min-width: 1200px) {
+    #perfect-specialist-verbage{ margin: 70px;}
+}
+@media (min-width: 1800px) {
+    #perfect-specialist-verbage{ margin: 200px;}
+}
+
+
+.hr-ps {
+    border: none;
+    height: 3px;
+    /* Set the hr color */
+    color: #07efc1; /* old IE */
+    background-color: #07efc1; /* Modern Browsers */
+}
+
+.hr-testimonial {
+    border: none;
+    height: 1px;
+    /* Set the hr color */
+    color: grey; /* old IE */
+    background-color: grey; /* Modern Browsers */
+}
+
+#testimonials { height: 550px; }
+
+#testimonials img {margin-top: 10px; }
+
+@media (max-width:400px) {
+    #testimonials h1 {font-size:32px;}
+}
+
+.heavy-style {
+    font-family: 'Lato', serif;
+    font-weight: 900;
+    font-size: 18px;
+    color: #121420;
+}
+
+/*
+.address-style {
+    font-family: 'Lato', serif;
+    font-weight: 400;
+    font-size: 18px;
+    color: #121420;
+}
+*/
+
+.header-style {
+    font-weight: 100;
+    font-size: 50px;
+}
+
+.customer-quotes {
+    margin-top: 40px;
+    color: #05c9a2;
+    font-family: 'Lato', serif;
+    font-style: italic;
+    font-weight: 700;
+    font-size: 24px;
+}
+
+.customer-name {
+    margin-top: 10px;
+    font-family: 'Lato', serif;
+    font-weight: 400;
+    font-size: 22px;
+}
+
+#easy-book { 
+    height: 100px;
+    background-color: #3b3e4d;
+    font-family: 'Lato', serif;
+    font-weight: 400;
+    font-size: 22px;
+    color: #fff;
+}
+
+@media (max-width: 440px) {
+    #easy-book { 
+        height: 200px;
+    }
+}
+
+#easy-book button {
+    background-color: #07EFC1; 
+    border-radius: 0px;
+    color: #121420;
+    padding: 15px 3px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 22px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+    letter-spacing: 1.5px;
+}
+
+#easy-book .button:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    background-color: #121420;
+    color: #fff;
+    border: solid 1px #07efc1;
+}
+
+/* mouse over link */
+#easy-book a:hover {
+    color: #000;
+}
+
+.cpright {
+    font-family: 'Lato', serif;
+    font-weight: 100;
+    font-size: 16px;
+    color: #fff;
+    margin-top: 60px;
+}
+
+#in-touch h1 {margin-top: -20px; margin-bottom: 0px;}
+
+#in-touch a { margin-right:-7px; }
+
+#in-touch { margin-top: 60px; margin-bottom: 100px; line-height: 1.6}
+
+#in-touch td span { margin-left:10px; }
+
+/* @media (max-width: 800px) {
+    #in-touch-google-map {margin-top:40px;}
+}
+*/
+
+#google-map {margin-bottom:-80px;}
+
+#specialists img {
+    filter: gray; /* IE */
+    -webkit-filter: grayscale(1); /* Old WebKit */
+    -webkit-filter: grayscale(100%); /* New WebKit */
+    filter: url(resources.svg#desaturate); /* older Firefox */
+    filter: grayscale(100%); /* Current draft standard */
+}
+
+/* Disable grayscale on hover */
+#specialists img:hover {
+  -webkit-filter: grayscale(0);
+  filter: none;
+}
+
+#specialist-panel {
+    padding-bottom: 40px;
+}
+
+
+
+
+
+#specialist-call {
+    font-family: 'Lato', serif;
+    font-weight: 400;
+    font-size: 16px;
+    color: #121420; 
+    line-height: 2;
+}
+
+
+.specialist-pill {
+    font-family: 'Lato', serif;
+    font-weight: 400;
+    font-size: 18px;
+    color: #121420;  
+}
+
+
+
+.specialist-container { margin-bottom:50px; }
+
+.specialist-image-container {
+    position: relative;
+    width: 370px;
+}
+
+.specialist-image {
+    display: block;
+}
+
+.specialist-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #07efc1;
+    overflow: hidden;
+    width: 370px;
+    height: 0;
+    transition: .5s ease;
+}
+
+.specialist-overlay-xs {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #07efc1;
+    overflow: hidden;
+    width: 280px;
+    height: 0;
+    transition: .5s ease;
+}
+
+
+.specialist-container:hover .specialist-overlay {
+    height: 20%;
+}
+
+
+.specialist-container:hover .specialist-overlay-xs {
+    height: 20%;
+}
+
+.specialist-text {
+    font-weight: 400;
+    font-size: 20px;   
+    white-space: nowrap; 
+    font-size: 20px;
+    position: absolute;
+    overflow: hidden;
+    top: 50%;
+    left: 75%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+}
+
+#specialist-nav-section a {
+    font-weight: 400;
+    font-size: 18px;
+    letter-spacing: 1.2px;
+}
+
+#specialist-nav-section a:active {
+    text-decoration: none;
+    border-bottom: 4px solid #121420;
+}
+
+#specialist-nav-section a:focus {
+    text-decoration:none;
+    outline: none;
+    border-bottom: 4px solid #121420;
+} 
+
+#specialist-nav-section ul {
+    margin-top:-10px;
+}
+
+
+.mytabcontainer {
+    height:280px; 
+    overflow:scroll;
+    -webkit-overflow-scrolling: touch;
+}
+
+.cover-container {
+    height: 180px;
+    width: 100%;
+    white-space: nowrap;
+    overflow-x: scroll;
+    overflow-y: hidden;
+}
+
+.service-image-container {    
+    float:left;
+    position: relative;
+    width: auto;
+    margin:10px;
+}
+
+.service-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow: hidden;
+    width: auto;
+    height: 20%;
+    transition: .5s ease;
+}
+
+.service-text {
+    font-weight: 400;
+    font-size: 12px;
+    color: #fff;    
+    white-space: nowrap; 
+    position: absolute;
+    overflow: hidden;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+}
+
+#sd-back-button {
+    font-weight: 400;
+    font-size: 16px;   
+    margin-bottom: 20px;
+    margin-left:-14px;
+}
+
+/* unvisited link */
+#sd-back-button a:link {
+    color: #05c9a2;
+}
+
+/* visited link */
+#sd-back-button a:visited {
+    color: #05c9a2;
+}
+
+/* mouse over link */
+#sd-back-button ul a:hover {
+    text-decoration: none; 
+    border-bottom: 4px solid #121420;
+    color: #121420;
+}
+
+/* selected link */
+#sd-back-button a:active {
+    color: #05c9a2;
+}
+
+#about-info {
+    font-weight: 400; 
+    font-size: 16px; 
+    margin-bottom: 50px;
+    margin-top: 40px;
+}
+
+
+.gallery-jumbotron {
+    background-color: #f0f0f0;
+}
+
+#gallery-name {
+    font-weight: 900; 
+    font-size: 24px; 
+    margin-top: 30px;
+}
+
+#gallery-icons {
+    font-size: 20px;
+}
+
+#gallery-icons i { margin: 6px; }
+
+#gallery-pics {
+    margin-top:20px;
+    margin-bottom:30px;
+    text-align: center;
+}
+
+#gallery-pics img {
+    margin:5px;
+}
+
+.book-now-header {
+    font-family: 'Lato', serif;
+    font-weight: 100;
+    font-size: 50px;
+}
+
+.book-now-jumbotron {
+    background-color: #f0f0f0;
+    border: 1px #D3D3D3 solid;
+    margin-top: 46px;
+    margin-bottom: 40px;
+}
+
+.book-now-jumbotron hr {
+    color: black; /* old IE */
+    background-color: black; /* Modern Browsers */
+}
+
+
+#book-now h1 {margin-top:35px; margin-bottom: 4px;}
+
+#book-now p {
+    font-family: 'Lato', serif;
+    font-weight: 400;
+    font-size: 16px;  
+    color: #121420;
+}
+
+.book-now-jumbotron p {
+    margin-bottom: 40px;
+}
+
+
+
+.not-finding-specialist {
+    font-weight: 400;
+    font-size: 36px;
+}
+
+.book-now-jumbotron button {
+    border-radius: 0px;
+    padding: 15px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 22px;
+    font-weight: 400;
+    letter-spacing: 1.5px;
+    width:100%;
+    margin-bottom: 40px;
+}
+
+.book-now-jumbotron .button:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    color: #fff;
+    border: solid 1px #07efc1;
+}
+
+#view-our-specialists { 
+    height: 172px;
+    font-weight: 400;
+    font-size: 22px;
+    color: #fff;
+}
+
+@media (max-width: 700px) {
+    #view-our-specialists { 
+        height: 200px;
+    }
+}
+
+#view-our-specialists button {
+    background-color: #07EFC1; 
+    border-radius: 0px;
+    padding: 15px 3px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 22px;
+    font-weight: 400;
+    letter-spacing: 1.5px;
+}
+
+#view-our-specialists .button:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    background-color: #121420;
+    color: #fff;
+    border: solid 1px #07efc1;
+}
+
+/* mouse over link */
+#view-our-specialists a:hover {
+    color: #000;
+}
+
+#book-now img { margin-right:-7px; }
+
+/* unvisited link */
+#book-now a:link {
+    color: #05c9a2;
+}
+
+/* visited link */
+#book-now a:visited {
+    color: #05c9a2;
+}
+
+/* mouse over link */
+#book-now a:hover {
+    color: #05c9a2;
+}
+
+/* selected link */
+#book-now a:active {
+    color: #05c9a2;
+}
+
+input.ng-invalid.ng-touched {
+  border: 1px solid #DA3637;
+}
+
+input.ng-valid.ng-touched {
+  border: 1px solid #509D12;
+}
+
+
+fieldset {
+  margin: 10px 0;
+}
+
+#login {
+    margin-top:180px;
+    margin-bottom:180px;
+    font-weight: 900;
+    font-size: 28px;
+}
+
+#login h1 {
+    font-weight: 100;
+    font-size: 32px;
+    letter-spacing: 1.4px;
+}
+
+
+#login label { font-size: 22px;}
+
+.validationerror {
+    color:red;
+    font-size: 16px;
+}
+
+.login-reg {
+    margin-top:20px;
+    font-size: 16px; 
+}
+
+#login button {
+    width: 100%;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: 400; 
+}
+
+#login button:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    color: #fff;
+}
+
+#myModalPasswordReset {
+    width: 100%;
+    border-radius: 0px;
+    font-size: 18px;
+    font-weight: 400; 
+}
+
+#btnEmailReset button {
+    margin-top:8px;
+    width: 100%;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: 400;  /* regular */
+}
+
+#btnEmailReset button:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    color: #fff;
+}
+
+#register {
+    margin-top:180px;
+    margin-bottom:180px;
+    font-weight: 400;
+    font-size: 28px;
+}
+
+#register h1 {
+    font-weight: 100;
+    font-size: 32px;
+    letter-spacing: 1.4px;
+}
+
+
+#register label { font-size: 22px;}
+
+#register button {
+    width: 100%;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: 400;  /* regular */
+}
+
+#register button:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    color: #fff;
+}
+
+#servicesform, #modalProfileSave, #modalDeleteConfirm, #modalBookingConfirm, #admin-page, #profile-page, #save-profile-button {
+    font-weight: 400;
+    font-size: 14px;   
+}
+
+#modalCancelConfirm p {font-size:22px;}
+#modalDeleteConfirm p {font-size:22px;}
+#modalCancelConfirm span {margin-top:-40px;}
+
+#admin-page {
+    margin-bottom: 50px;
+}
+
+#servicesform .input-group { margin-bottom:18px;}
+#servicesform .input-group-addon { 
+    font-weight: 400;
+    font-size: 16px;
+    width:50%;
+    text-align:left;
+}
+
+#profileform .input-group { margin-bottom:18px;}
+#profileform .input-group-addon { 
+    font-weight: 400;
+    font-size: 16px;
+    width:30%;
+    text-align:left;
+    background-color:lightgrey; 
+}
+
+.logout {margin:10px;}
+.searchbox {margin-top:10px; margin-bottom:40px;}
+#admin-page progress {width:100%;}
+#profile-page {    
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.full-width {width:100%;}
+.center-button {text-align: left; vertical-align: middle;}
+#fileButton {font-size:16px;}
+#biz-hours {margin-top:16px;}
+.work-hours {font-size:16px;}
+#addProfileImage {margin-top:10px;}
+#delete-profile-pic {margin-top:5px; margin-bottom:5px;}
+#gallery progress {margin-top:50px;}
+#profile-page progress {width:100%;}
+#profile-page h4 {    
+    font-weight: 700;
+    font-size: 16px;
+}
+
+figure {
+  width: 210px;
+  height: 140px;
+  background-color: #fff;
+  text-align: center;
+  display: table-cell;
+  vertical-align: top;
+}
+
+figure img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+figure2 {
+  width: 140px;
+  height: 140px;
+  background-color: #f0f0f0;
+  text-align: left;
+  display: table-cell;
+  vertical-align: top;
+}
+
+figure2 img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+#Product-add label {margin-top:16px; font-weight:bold;}
+
+#Product-add progress {width:140px;}
+
+.tab-wrap {margin-bottom:50px;}
+
+
+.modal {
+}
+.vertical-alignment-helper {
+    display:table;
+    height: 100%;
+    width: 100%;
+}
+.vertical-align-center {
+    /* To center vertically */
+    display: table-cell;
+    vertical-align: middle;
+}
+.modal-content {
+    /* Bootstrap sets the size of the modal in the modal-dialog class, we need to inherit it */
+    width:inherit;
+    height:inherit;
+    /* To center horizontally */
+    margin: 0 auto;
+}
+
+
+/************ from scotchio for scheduling app *************/
+/* checkbox - each time slot */
+.time-slot               {  }
+
+/* hide the checkbox itself - the label will be styled */
+.time-slot input     { 
+  display:none; 
+}
+
+/* default styling for our labels */
+.time-slot label     { 
+  /* padding:10px 20px; */
+  font-family: 'Lato', serif;
+  font-weight: 400;
+  font-size: 18px;    
+    
+  padding:20px 40px;
+  color:#FFF; 
+  cursor:pointer; 
+  background:#EEE; 
+  border-radius:5px; 
+  transition:0.3s ease all;
+}
+
+/* if the label is checked */
+.time-slot input:checked ~ label { 
+  background: #e6e6e6;
+  cursor:not-allowed;
+  animation:flashBooked 0.5s ease; 
+}
+
+/* if the label is not checked */
+.time-slot input:not(:checked) ~ label { 
+  background: #e6e6e6;
+  animation:flashAvailable 0.5s ease; 
+}
+
+/* animation for the time slot to flash */
+@keyframes flashBooked {
+  0%, 100%  { background:#e6e6e6; transform:scale(1); }
+  50%       { background:#e6e6e6; transform:scale(1.5); }
+}
+
+/* animation for the time slot to flash */
+@keyframes flashAvailable {
+  0%, 100%  { background:#e6e6e6; transform:scale(1); }
+  50%       { background:#e6e6e6; transform:scale(1.5); }
+}
+
+/* Style the buttons that are used to open and close the accordion panel */
+button.accordion {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    text-align: left;
+    border: none;
+    outline: none;
+    transition: 0.4s;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+button.accordion.active, button.accordion:hover {
+    background-color: #ddd;
+}
+
+/* Style the accordion panel. Note: hidden by default */
+div.panel {    
+    padding: 0 18px;
+    background-color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+}
+
+button.accordion:after {
+    content: '\02795'; /* Unicode character for "plus" sign (+) */
+    font-size: 13px;
+    color: #777;
+    float: right;
+    margin-left: 5px;
+    margin-top: 8px;
+}
+
+button.accordion.active:after {
+    content: "\2796"; /* Unicode character for "minus" sign (-) */
+}
+
+#dateselect {
+    margin-top:20px;
+    margin-bottom:60px;
+}
+
+#mycalendar {
+    margin-top:6px;
+}
+
+#sessbooked {
+    height:300px;
+}
+
+#datepicker {
+    font-family: 'Lato', serif;
+    font-weight: 400;
+    font-size: 20px;
+    color: #121420;
+    /* margin-top: 5px; */
+}
+
+#calendarselect {
+    margin-bottom: 60px;
+}
+
+#todaybutton {
+    margin-right:20px; 
+    margin-top:10px;
+}
+
+
+.srvchours { margin-right: 6px; margin-bottom: 4px;}
+
+#servtable {margin-top:25px;}
+
+#logoprog {width:370px}
+
+/* nav h1 {font-size: .9em; color:white;} */
+
+
+/* Footer
+-------------------------------------------------- */
+/* footer {
+  height: 800px;
+  padding-top: 70px;
+ 
+  background-repeat: no-repeat;
+   background-attachment: scroll; 
+  background-position: center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+  text-align: center;
+  color: white; 
+  background-color:#000;
+}
+
+footer p {
+    font-weight: 400;
+    font-size: 24px;
+    color: #fff;
+}
+
+footer ul {
+    font-weight: 400;
+    font-size: 16px;
+    color: #fff;
+} */
+
+@media (max-width: 1000px) {
+    footer li { font-weight: 400; }
+}
+
+footer li { margin-left: 10px; margin-right: 10px; margin-top:50px;}
+
+/* footer address {
+    font-weight: 100;
+    font-size: 24px;
+    color: #fff;
+    letter-spacing: 2px;
+    line-height: 40px;
+} */
+
+@media (max-width: 1000px) {
+    footer address { font-weight: 400; }
+}
+
+@media (max-width:600px) {
+    footer address {margin-top: -20px;}
+    footer li {margin-top: 10px;}
+}
+
+/* unvisited link */
+footer a:link {
+    color: #fff;
+}
+
+/* visited link */
+footer a:visited {
+    color: #fff;
+}
+
+/* mouse over link */
+footer a:hover {
+    color: #fff;
+}
+
+/* selected link */
+footer a:active {
+    color: #fff;
+}
+
+/* #myfooter td {font-size:16px; line-height: 8px; font-weight: 100;}
+#myfooter table {margin-top:20px;} */
+
+
+
+#fileGalleryButton {margin-bottom: 40px;}
+#fileFooterButton {margin-bottom: 80px;}
+#fileRotatorButton {margin-bottom: 80px;}
+#home-page-rotator p {margin-top: 40px;}
+#footer-gallery p {margin-top: 40px;}
+#main-gallery p {margin-top: 40px;}
+#gallerysection {margin-top: 70px;}
+#footersection {margin-top: 60px;}
+
+#rotator-gallery figure {background-color: #fff;}
+#footer-gallery figure {background-color: #fff;}
+#main-gallery {padding-top:70px; padding-bottom:200px; margin-bottom:-30px;}
+
+/* 
+.offset:before { 
+	display: block; 
+ 	content: " "; 
+  	height: 100px;     
+    margin-top: -150px;  	
+    visibility: hidden; 
+}
+*/
+
+.responsive-video {
+position: relative;
+padding-bottom: 56.25%;
+padding-top: 60px; overflow: hidden;
+}
+
+
+.responsive-video iframe,
+.responsive-video object,
+.responsive-video embed {
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+}
+
+
+.chart {
+  width: 100%; 
+  min-height: 450px;
+}
+
+/* bootstrap hack: fix content width inside hidden tabs */
+.tab-content > .tab-pane,
+.pill-content > .pill-pane {
+display: block;     /* undo display:none          */
+height: 0;          /* height:0 is also invisible */ 
+overflow-y: hidden; /* no-overflow                */
+}
+.tab-content > .active,
+.pill-content > .active {
+height: auto;       /* let the content decide it  */
+} /* bootstrap hack end */
+
+#day-glance {margin-top: 40px;}
+
+#hamburger-button {margin-top:11px;}
+
+ngcart-summary {font-size:16px; color:#fff}
+
+#cart-page {margin-top:120px; margin-bottom:200px;}
+
+.nav-pills .nav-item.show .nav-link, .nav-pills .nav-link.active {background-color:black;}
+.nav-pills .nav-item.show .nav-link, .nav-pills .nav-link:hover {
+    color: red;
+}
+
+.mt-main {margin-top:100px;}
+
+
+.social [class*="fa fa-"] {
+    background-color: grey;
+    border-radius: 30px;
+    color: #fff;
+    display: inline-block;
+    height: 60px;
+    line-height: 60px;
+    margin: auto 3px;
+    width: 60px;
+    font-size: 25px;
+    text-align: center;
+}
+
+
+.loader {
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.pagination>li>a, .pagination>li>span {
+    position: relative;
+    float: left;
+    padding: 6px 12px;
+    line-height: 1.42857143;
+    text-decoration: none;
+    color: #428bca;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    margin-left: -1px;
+}
+
+.pagination .page-link {
+    border: 1px solid #ddd;
+}
+
+.page-item.active .page-link {
+    border-color: #212529;
+}
+
+#products-content {margin-top:100px;}
+#products-content a:hover {color: #000;}
+#products-content a:link {color: #000;}
+#specialists-content {margin-top:170px;}
+#specialists-content a:hover {color: #000;}
+#specialists-content a:link {color: #000;}
+#services-content a:hover {color: #000;}
+#services-content a:link {color: #000;}
+.services-content-extra-margin {margin-top:170px;}

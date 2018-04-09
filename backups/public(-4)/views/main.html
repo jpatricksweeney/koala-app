@@ -1,0 +1,91 @@
+<span class="container-fluid" ng-controller="MainController">
+        
+    <div ng-show='company.header.on' id="bannersection">
+        <div ng-show='company.headertitle || company.headermessage' class="bannercontent">
+            <h1>{{company.headertitle}}</h1>
+            <p>{{company.headermessage}}</p>
+        </div>
+    </div>           
+        
+    <!-- Company description -- this content is completed by admin via TinyMCE editor -->
+    <section ng-show='company.description.on' id="main-description">
+        <div class='row'>
+        <div class='col-sm-12'>
+            <p class="text-center splash-text" ng-bind-html="company.homepagedescription | html"></p>
+        </div>
+        </div>
+    </section>   
+    
+    <!-- Services section -->
+    <section id="main-services-section" class='offset'>
+        <div class="container">
+            <div class="row">
+                <div ng-show='company.services.on' ng-repeat='service in services' class='col-lg-6 col-md-6 card-deck mb-5'>
+                    <div class='card mb-3'>
+                        <a ng-href='#service-detail/{{service.servicecategory}}'>
+                            <img src="{{service.picURL}}" class="img-fluid m-0" alt="{{service.servicecategory}}">
+                        </a>
+                        <div class='card-block'>
+                            <h3 class='card-title text-uppercase'><a ng-href='#service-detail/{{service.servicecategory}}'>{{service.servicecategory}}</a></h3>
+                            
+                            <div class="card-text">
+                                <p ng-bind-html="(service.description | limitTo:180 | html) + '...'"></p>
+                            </div>
+                        </div>
+                        <div class='card-footer'>
+                            <a ng-href='#service-detail/{{service.servicecategory}}' class="btn btn-secondary btn-md pull-right" role="button" aria-pressed="true">More on our {{service.servicecategory | removelastchar}} {{company.menuservices}}</a>
+                        </div>
+                    </div>
+                </div> 
+                
+                <div ng-show='company.specialists.on' ng-repeat="staffmember in users | filter: {active:true} | orderBy: staffOrder:ascending" class='col-lg-6 col-md-6 card-deck mb-5'>
+                    <div class='card mb-3'>                    
+                        <a ng-href="#specialist-detail/{{staffmember.regUser}}">
+                            <img src="{{staffmember.profilepic}}" class="img-fluid card-img-top m-0" alt="{{service.servicecategory}}">
+                        </a>
+                        <div class='card-block'>
+                            <h3 class='card-title'><a ng-href="#specialist-detail/{{staffmember.regUser}}">{{staffmember.firstname}} {{staffmember.lastname}}</a></h3>
+                            
+                            <div class="card-text">
+                                <p ng-bind-html="(staffmember.about | limitTo:180 | html) + '...'"></p>
+                                
+                            </div>
+                        </div>
+                        
+                        <div class='card-footer'>
+                            <a ng-href='#specialist-detail/{{staffmember.regUser}}' class="btn btn-secondary btn-md pull-right" role="button" aria-pressed="true">Read about {{staffmember.firstname}}</a>
+                        </div>                        
+                        
+                    </div>
+                </div>                
+                
+                
+            </div>
+        </div>
+    </section>
+    
+    <!-- Gallery section -->
+    <section ng-show='company.gallery.on' id="main-gallery">
+        <div class="container-fluid" >
+            <div class="row">
+                <div class="text-center">
+                <span ng-repeat='gallerypic in company.gallerypics'>
+                    <figure>
+                        <a href={{gallerypic.url}} data-fancybox="group" data-caption="">
+                        <img class="img-fluid" src={{gallerypic.url}} alt="" /></a>
+                    </figure>
+                </span>
+                </div>
+            </div>
+        </div>
+    </section>    
+    
+  
+    <div ng-controller="ContactController" style='margin-bottom:-40px;'>
+        <iframe style="width: 100vw;height: 50vh;position: relative;" ng-src="{{company.googlemapiframe}}" allowfullscreen></iframe>
+    </div> 
+
+</span>   
+
+
+

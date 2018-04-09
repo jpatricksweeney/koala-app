@@ -1,0 +1,762 @@
+<!-- Profile Page -->
+<div id="admin-page" ng-controller="AdminController" style='margin-bottom:200px;'>
+    <div class="container-fluid">
+        <h2 style='display:inline;'>Administrator</h2>
+        <h2 class='pull-right'>{{user.firstname}} {{user.lastname}}</h2>
+        <p>Manage users, staff, services, company details, and website configuration.</p>
+        <ul class="nav nav-tabs flex-wrap">
+            <li class="nav-item"><a class="nav-link active" data-toggle="tab" data-target='#admin'>Logins</a></li>
+            <li class="nav-item"><a class="nav-link" data-toggle="tab" data-target='#appointments'>Appointments</a></li>
+            <li class="nav-item"><a class="nav-link" data-toggle="tab" data-target='#service-cat-config'>Categories</a></li>
+            <li class="nav-item"><a class="nav-link" data-toggle="tab" data-target='#service-config'>Services</a></li>
+            <li class="nav-item"><a class="nav-link" data-toggle="tab" data-target='#Product-add'>Products</a></li>
+            <li class="nav-item"><a class="nav-link" data-toggle="tab" data-target='#paypal-config'>PayPal</a></li>
+            <li class="nav-item"><a class="nav-link" data-toggle="tab" data-target='#company-info'>Company</a></li>
+            <li class="nav-item"><a class="nav-link" data-toggle="tab" data-target='#company-hours'>Hours</a></li>
+            <li class="nav-item"><a class="nav-link" data-toggle="tab" data-target='#home-page-rotator'>Images</a></li>
+            <li class="nav-item"><a class="nav-link" data-toggle="tab" data-target='#home-page-description'>Description</a></li>
+            <li class="nav-item"><a class="nav-link" data-toggle="tab" data-target='#menu-overrides'>Menu</a></li>
+            <li class="nav-item"><a class="nav-link" data-toggle="tab" data-target='#main-sections'>Features</a></li>
+            <li class="nav-item"><a class="nav-link" data-toggle="tab" data-target='#color-selector'>Color</a></li>
+        </ul>
+        <div class="tab-content">
+            <!-- ALL APPOINTMENTS -->
+            <div id="appointments" class="tab-pane fade">
+                <h3>All Appointments</h3>
+                <div class="row">
+                    <div class="col-sm-4 col-xs-8">
+                        <div class="searchbox">
+                            <input class="form-control input-md" type="text" ng-model="userquery" placeholder="keyword search" data-toggle="tooltip" data-placement="bottom">
+                            <br> <span><input type='checkbox' ng-init='hidePastAppointments=true' ng-model='hidePastAppointments'> Hide Past Appointments</span>
+                            <br> </div>
+                    </div>
+                </div>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="table-responsive">
+                                <table id='servtable' class="table table-striped table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Action</th>
+                                            <th>{{company.menuspecialists | removelastchar}}</th>
+                                            <th>Client</th>
+                                            <th>Date/time</th>
+                                            <th>Service</th>
+                                            <th>Duration</th>
+                                            <th>Client email</th>
+                                            <th>Client mobile #</th>
+                                            <th>Date Booked</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="appointment in appointments  | orderBy:'sortDate' | filter:userquery | filter:appointmentFilter">
+                                            <td>
+                                                <button type="button" class="btn btn-secondary btn-sm" ng-click="cancelAppointment(appointment)">Cancel</button>
+                                            </td>
+                                            <td><span class="pull-left">{{appointment.specialist}}</span></td>
+                                            <td><span class="pull-left">{{appointment.client}}</span></td>
+                                            <td><span class="pull-left">{{appointment.date}}</span></td>
+                                            <td><span class="pull-left">{{appointment.service}}</span></td>
+                                            <td><span class="pull-left">{{appointment.minutesToComplete}}</span></td>
+                                            <td><span class="pull-left">{{appointment.clientEmail}}</span></td>
+                                            <td><span class="pull-left">{{appointment.clientMobile}}</span></td>
+                                            <td><span class="pull-left">{{appointment.dateBooked}}</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ALL APPOINTMENTS -->
+            <div id="admin" class="tab-pane fade in active show">
+                <div class="container-fluid">
+                    <h3>Registered Users</h3>
+                    <p>The User table displays registered users including staff and customers.</p>
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-8">
+                            <div class="searchbox">
+                                <input class="form-control input-md" type="text" ng-model="userquery" placeholder="search by first name or last name" data-toggle="tooltip" data-placement="bottom"> </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Action</th>
+                                    <th>Staff</th>
+                                    <th>Firstname</th>
+                                    <th>Lastname</th>
+                                    <th>email</th>
+                                    <th>mobile</th>
+                                    <th>regUser</th>
+                                    <th>Allow Service Updates</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="user in users | filter:userquery | orderBy:['lastname','firstname']">
+                                    <td>
+                                        <button type="button" class="btn btn-secondary btn-sm" ng-click="deleteUser(user)">Delete</button>
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" ng-checked="user.staffmember == true" ng-click="toggleStaffmember(user)"> 
+                                    </td>
+                                    <td>{{user.firstname}}</td>
+                                    <td>{{user.lastname}}</td>
+                                    <td>{{user.email}}</td>
+                                    <td>{{user.mobile}}</td>
+                                    <td>{{user.regUser}}</td>
+                                    <td>
+                                        <input type="checkbox" ng-disabled='!user.staffmember' ng-checked="user.serviceUpdateAccess == true" ng-click="toggleServiceUpdateAccess(user)"> 
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- User Table -->
+            <div id="service-cat-config" class="tab-pane fade">
+                <div class="container-fluid">
+                    <h3>Service Categories</h3>
+                    <p>Add, update and delete your service categories. For example, you can create a "Hair" category which can be used to group all hair services (cuts, color, etc).</p>
+                    <div class='tab-wrap'>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Action</th>
+                                        <th>Service Category</th>
+                                        <th>Description</th>
+                                        <th>Picture</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <form name='addCatform' novalidate>
+                                            <td>
+                                                <button type="button" ng-disabled="!addCatform.$valid" class="btn btn-secondary btn-sm" ng-click="addCatform.servicecategory && addCatform.description ? addServiceCategory(addCatform) : alert('failed')">Add</button>
+                                            </td>
+                                            <td>
+                                                <input type="text" ng-model="addCatform.servicecategory" class="form-control input-md" ng-required="true" placeholder="service category" /> </td>
+                                            <td>
+                                                <textarea class="form-control" ui-tinymce="tinymceOptions" ng-model="addCatform.description">Enter the service description here.</textarea>
+                                            </td>
+                                            <td>
+                                                <div class="text-center">
+                                                    <figure2><img class='img-repsonsive' src="/images/default.png" id="addServiceCategoryImage"></figure2>
+                                                </div>
+                                                <progress value="0" max="100" id="uploader">0%</progress>
+                                                <input type="file" value="upload" id="fileButton" />
+                                                <button id="close-button" type="button" class="close">&times;</button>
+                                            </td>
+                                        </form>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-8">
+                            <div class="searchbox">
+                                <input class="form-control input-md" type="text" ng-model="catquery" placeholder="search by service category" data-toggle="tooltip" data-placement="bottom"> </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Action</th>
+                                    <th>Service Category</th>
+                                    <th>Description</th>
+                                    <th>Picture</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="serviceCat in services | filter:catquery | orderBy:'servicecategory'">
+                                    <td>
+                                        <button type="button" class="btn btn-secondary btn-sm" ng-click="deleteServiceCategory(serviceCat)">Delete</button>
+                                    </td>
+                                    <td>
+                                        <input type="text" ng-model="serviceCat.servicecategory" ng-change="updateServiceCategories(serviceCat);" class="form-control input-md full-width" /> </td>
+                                    <td>
+                                        <input type="text" ng-model="serviceCat.description" ng-change="services.$save(serviceCat)" class="form-control input-md full-width" /> </td>
+                                    <td>
+                                        <input type="text" ng-model="serviceCat.picURL" ng-change="services.$save(serviceCat)" class="form-control input-md full-width" /> </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div id="service-config" class="tab-pane fade">
+                <div class="container-fluid">
+                    <h3>Services</h3>
+                    <p>Add, update and delete services that your business provides.</p>
+                    <div class='tab-wrap'>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Action</th>
+                                        <th>Service Category</th>
+                                        <th>Subcategory</th>
+                                        <th>Service</th>
+                                        <th>Pricing info</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <form name='addServiceform'>
+                                            <td class="center-button">
+                                                <button ng-disabled="!addServiceform.$valid" type="button" class="btn btn-secondary btn-sm" ng-click="addServiceform.servicecategory && addServiceform.category && addServiceform.name ? addService(addServiceform) : alert('failed')">Add</button>
+                                            </td>
+                                            <td class="center-button">
+                                                <select ng-model="addServiceform.servicecategory" class="custom-select">
+                                                    <option ng-repeat="x in services">{{x.servicecategory}}</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <input type="text" ng-model="addServiceform.category" ng-required="true" class="form-control input-lg" placeholder="subcategory" /> </td>
+                                            <td>
+                                                <input type="text" ng-model="addServiceform.name" ng-required="true" class="form-control input-lg" placeholder="service" /> </td>
+                                            <td>
+                                                <input type="text" ng-model="addServiceform.pricing" class="form-control input-lg" placeholder="pricing" /> </td>
+                                        </form>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-8">
+                            <div class="searchbox">
+                                <input class="form-control input-md" id="formGroupInputLarge" type="text" ng-model="servquery" placeholder="keyword search" data-toggle="tooltip" data-placement="bottom"> </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Action</th>
+                                    <th>Service Category</th>
+                                    <th>Subcategory</th>
+                                    <th>Service</th>
+                                    <th>Pricing info</th>
+                                </tr>
+                            </thead>
+                            <tbody ng-repeat="s1 in services  | filter:servquery">
+                                <tr ng-repeat="(key,s2) in s1.servicelist">
+                                    <td>
+                                        <button type="button" class="btn btn-secondary btn-sm" ng-click="deleteService(s1,key)">Delete</button>
+                                    </td>
+                                    <td>{{s2.servicecategory}}</td>
+                                    <td>
+                                        <input type="text" ng-model="s2.category" ng-change="updateServ(s1,s2,key)" class="form-control input-md full-width" /> </td>
+                                    <td>
+                                        <input type="text" ng-model="s2.name" ng-change="updateServ(s1,s2,key)" class="form-control input-md full-width" /> </td>
+                                    <td>
+                                        <input type="text" ng-model="s2.pricing" ng-change="updateServ(s1,s2,key)" class="form-control input-md full-width" /> </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div id="company-info" class="tab-pane fade in">
+                <div class="container-fluid">
+                    <h3>Company Information</h3>
+                    <p>Enter your company information here.</p>
+                    <div class="col-md-offset-2 col-md-8 col-xs-12">
+                        <div class="form-group">
+                            <label for="companyNameInput" class="col-form-label col-form-label-lg">Company Name</label>
+                            <input ng-model="company.name" class="form-control input-lg" id='companyNameInput' type="text" placeholder="company name" data-toggle="tooltip" data-placement="bottom"> </div>
+                        <div class="form-group">
+                            <label for="telephoneNumberInput" class="col-form-label col-form-label-lg">Telephone Number</label>
+                            <input ng-model="company.number" class="form-control input-lg" id='telephoneNumberInput' type="tel" placeholder="company number" data-toggle="tooltip" data-placement="bottom"> </div>
+                        <div class="form-group">
+                            <label for="emailInput" class="col-form-label col-form-label-lg">Email</label>
+                            <input ng-model="company.email" class="form-control input-lg" id='emailInput' type="email" placeholder="company email" data-toggle="tooltip" data-placement="bottom"> </div>
+                        <div class="form-group">
+                            <label for="streetAddressInput" class="col-form-label col-form-label-lg">Street Address</label>
+                            <input ng-model="company.address" class="form-control input-lg" id='streetAddressInput' type="text" placeholder="street address" data-toggle="tooltip" data-placement="bottom"> </div>
+                        <div class="form-group">
+                            <label for="cityInput" class="col-form-label col-form-label-lg">City</label>
+                            <input ng-model="company.city" class="form-control input-lg" id='cityInput' type="text" placeholder="city" data-toggle="tooltip" data-placement="bottom"> </div>
+                        <div class="form-group">
+                            <label for="stateInput" class="col-form-label col-form-label-lg">State</label>
+                            <input ng-model="company.state" class="form-control input-lg" id='stateInput' type="text" placeholder="state" data-toggle="tooltip" data-placement="bottom"> </div>
+                        <div class="form-group">
+                            <label for="zipcodeInput" class="col-form-label col-form-label-lg">Zip Code</label>
+                            <input ng-model="company.zip" class="form-control input-lg" id='zipcodeInput' type="text" placeholder="zipcode" data-toggle="tooltip" data-placement="bottom"> </div>
+                        <h4>Map Links</h4>
+                        <div class="form-group">
+                            <label for="googleMapInput" class="col-form-label col-form-label-lg">Google Map URL</label>
+                            <input ng-model="company.googlemap" class="form-control input-lg" id='googleMapInput' type="text" placeholder="Google map url" data-toggle="tooltip" data-placement="bottom"> </div>
+                        <div class="form-group">
+                            <label for="googleEmbeddedMapInput" class="col-form-label col-form-label-lg">Google Embedded Map URL</label>
+                            <input ng-model="company.googlemapiframe" class="form-control input-lg" id='googleEmbeddedMapInput' type="text" placeholder="contact page map iframe" data-toggle="tooltip" data-placement="bottom"> </div>
+                        <h4>Social Media</h4>
+                        <div class="form-group">
+                            <label for="facebookIDInput" class="col-form-label col-form-label-lg">Facebook ID</label>
+                            <input ng-model="company.facebook" class="form-control input-lg" id='facebookIDInput' type="text" placeholder="Facebook id" data-toggle="tooltip" data-placement="bottom"> </div>
+                        <div class="form-group">
+                            <label for="twitterInput" class="col-form-label col-form-label-lg">Twitter ID</label>
+                            <input ng-model="company.twitter" class="form-control input-lg" id='twitterInput' type="text" placeholder="Twitter id" data-toggle="tooltip" data-placement="bottom"> </div>
+                        <div class="form-group">
+                            <label for="instagramInput" class="col-form-label col-form-label-lg">Instagram ID</label>
+                            <input ng-model="company.instagram" class="form-control input-lg" id='instagramInput' type="text" placeholder="Instagram id" data-toggle="tooltip" data-placement="bottom"> </div>
+                        <div class="form-group">
+                            <label for="googleInput" class="col-form-label col-form-label-lg">Google+ ID</label>
+                            <input ng-model="company.google" class="form-control input-lg" id='googleInput' type="text" placeholder="Google+ id" data-toggle="tooltip" data-placement="bottom"> </div>
+  
+                    </div>
+                    <h4>Main Page Title and Message Text</h4>
+                    <div class="col-md-offset-2 col-md-8 col-sm-12">
+                        <div class="form-group">
+                            <label for="headerTitleInput" class="col-form-label col-form-label-lg">Main Page Title</label>
+                            <input ng-model="company.headertitle" class="form-control input-lg" id='headerTitleInput' type="text" placeholder="Option Title for main page" data-toggle="tooltip" data-placement="bottom"> </div>
+                        <div class="form-group">
+                            <label for="headerMessageInput" class="col-form-label col-form-label-lg">Main Page Message</label>
+                            <input ng-model="company.headermessage" class="form-control input-lg" id='headerMessageInput' type="text" placeholder="Header Message" data-toggle="tooltip" data-placement="bottom"> </div>
+                    </div>
+                    <h4>Copyright</h4>
+                    <div class="col-md-offset-2 col-md-8 col-sm-12">
+                        <div class="form-group">
+                            <label for="copyrightInput" class="col-form-label col-form-label-lg">Copyright Year</label>
+                            <input ng-model="company.copyright" class="form-control input-lg" id='copyrightInput' type="text" placeholder="Copyright Year" data-toggle="tooltip" data-placement="bottom"> </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="company-hours" class="tab-pane fade in">
+                <div class="container-fluid">
+                    <h3>Business Hours</h3>
+                    <div class="col-md-offset-2 col-md-8 col-xs-12">
+                        <div id="biz-hours" class="form-group">
+                            <input ng-model='company.monday.on' type="checkbox" id='mondayInput'>
+                            <label for="mondayInput" class="col-form-label col-form-label-lg">Monday</label>
+                            <div ng-show="company.monday.on" id="timepicker" class="col-sm-4">
+                                <input ng-model="company.monday.start" ng-change="checkTimes(company.monday);" type="text" class="time start form-control input-lg" /> </div>
+                            <div ng-show="company.monday.on" id="timepicker" class="col-sm-4">
+                                <input ng-model="company.monday.end" ng-change="checkTimes(company.monday);" type="text" class="time end form-control input-lg" /> </div>
+                        </div>
+                        <div class="form-group">
+                            <input ng-model='company.tuesday.on' type="checkbox" id='tuesdayInput'>
+                            <label for="tuesdayInput" class="col-form-label col-form-label-lg">Tuesday</label>
+                            <div ng-show="company.tuesday.on" id="timepicker" class="col-sm-4">
+                                <input ng-model="company.tuesday.start" ng-change="checkTimes(company.tuesday);" type="text" class="time start form-control input-lg" /> </div>
+                            <div ng-show="company.tuesday.on" id="timepicker" class="col-sm-4">
+                                <input ng-model="company.tuesday.end" ng-change="checkTimes(company.tuesday);" type="text" class="time end form-control input-lg" /> </div>
+                        </div>
+                        <div class="form-group">
+                            <input ng-model='company.wednesday.on' type="checkbox" id='wednesdayInput'>
+                            <label for="wednesdayInput" class="col-form-label col-form-label-lg">Wednesday</label>
+                            <div ng-show="company.wednesday.on" id="timepicker" class="col-sm-4">
+                                <input ng-model="company.wednesday.start" ng-change="checkTimes(company.wednesday);" type="text" class="time start form-control input-lg" /> </div>
+                            <div ng-show="company.wednesday.on" id="timepicker" class="col-sm-4">
+                                <input ng-model="company.wednesday.end" ng-change="checkTimes(company.wednesday);" type="text" class="time end form-control input-lg" /> </div>
+                        </div>
+                        <div class="form-group">
+                            <input ng-model='company.thursday.on' type="checkbox" id='thursdayInput'>
+                            <label for="thursdayInput" class="col-form-label col-form-label-lg">Thursday</label>
+                            <div ng-show="company.thursday.on" id="timepicker" class="col-sm-4">
+                                <input ng-model="company.thursday.start" ng-change="checkTimes(company.thursday);" type="text" class="time start form-control input-lg" /> </div>
+                            <div ng-show="company.thursday.on" id="timepicker" class="col-sm-4">
+                                <input ng-model="company.thursday.end" ng-change="checkTimes(company.thursday);" type="text" class="time end form-control input-lg" /> </div>
+                        </div>
+                        <div class="form-group">
+                            <input ng-model='company.friday.on' type="checkbox" id='fridayInput'>
+                            <label for="fridayInput" class="col-form-label col-form-label-lg">Friday</label>
+                            <div ng-show="company.friday.on" id="timepicker" class="col-sm-4">
+                                <input ng-model="company.friday.start" ng-change="checkTimes(company.friday);" type="text" class="time start form-control input-lg" /> </div>
+                            <div ng-show="company.friday.on" id="timepicker" class="col-sm-4">
+                                <input ng-model="company.friday.end" ng-change="checkTimes(company.friday);" type="text" class="time end form-control input-lg" /> </div>
+                        </div>
+                        <div class="form-group">
+                            <input ng-model='company.saturday.on' type="checkbox" id='saturdayInput'>
+                            <label for="saturdayInput" class="col-form-label col-form-label-lg">Saturday</label>
+                            <div ng-show="company.saturday.on" id="timepicker" class="col-sm-4">
+                                <input ng-model="company.saturday.start" ng-change="checkTimes(company.saturday);" type="text" class="time start form-control input-lg" /> </div>
+                            <div ng-show="company.saturday.on" id="timepicker" class="col-sm-4">
+                                <input ng-model="company.saturday.end" ng-change="checkTimes(company.saturday);" type="text" class="time end form-control input-lg" /> </div>
+                        </div>
+                        <div class="form-group">
+                            <input ng-model='company.sunday.on' type="checkbox" id='sundayInput'>
+                            <label for="sundayInput" class="col-form-label col-form-label-lg">Sunday</label>
+                            <div ng-show="company.sunday.on" id="timepicker" class="col-sm-4">
+                                <input ng-model="company.sunday.start" ng-change="checkTimes(company.sunday);" type="text" class="time start form-control input-lg" /> </div>
+                            <div ng-show="company.sunday.on" id="timepicker" class="col-sm-4">
+                                <input ng-model="company.sunday.end" ng-change="checkTimes(company.sunday);" type="text" class="time end form-control input-lg" /> </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="home-page-rotator" class="tab-pane fade">
+                <h3>Logo, Header, Footer, and Gallery Images</h3>
+                <!-- LOGO PICTURE -->
+                <div class='col-lg-3 col-md-4 col-sm-6 col-xs-12'>
+                    <h4>Company Logo</h4>
+                    <div class="form-group">
+                        <figure><img src="/images/default.png" id="addLogoImage"></figure>
+                        <div id='logoprog'>
+                            <progress ng-show="company.logopic == ''" value="0" max="100" id="uploaderLogo">0%</progress>
+                        </div>
+                        <input ng-show="company.logopic == ''" type="file" value="upload" id="logoButton" />
+                        <button ng-hide="company.logopic == ''" ng-click="deleteLogoPic()" type="button" class="pull-left btn btn-secondary btn-sm">Delete</button>
+                        <br> </div>
+                </div>
+                <div class="col-sm-12">
+                    <h4>Header Images</h4>
+                    <p>Click <strong>Choose File</strong> to select and add an image to the home page carousel.</p>
+                    <div class="form-group">
+                        <div class='col-lg-3 col-md-4 col-sm-6 col-xs-12'>
+                            <progress value="0" max="100" id="uploaderRotator">0%</progress>
+                            <input type="file" value="upload" id="fileRotatorButton" /> </div>
+                    </div>
+                </div>
+                <!-- Rotator gallery -->
+                <section id="rotator-gallery">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div ng-repeat="pic in company.rotatorpics" class="col-lg-3 col-sm-4">
+                                <figure>
+                                    <a href={{pic.url}} data-fancybox="group" data-caption=""> <img class="img-responsive" ng-src={{pic.url}} alt="" /></a>
+                                </figure>
+                                <button type="button" ng-click="deleteRotatorPic(pic)" class="pull-left btn btn-secondary btn-sm">Delete</button>
+                                <br> </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- Footer -->
+                <div id="footersection" class="col-sm-12">
+                    <h4>Footer Images</h4>
+                    <p>Click <strong>Choose File</strong> to select and add an image to the footer carousel.</p>
+                    <div class="form-group">
+                        <div class='col-lg-3 col-md-4 col-sm-6 col-xs-12'>
+                            <progress value="0" max="100" id="uploaderFooter">0%</progress>
+                            <input type="file" value="upload" id="fileFooterButton" /> </div>
+                    </div>
+                </div>
+                <section id="footer-gallery">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div ng-repeat="pic in company.footerpics" class="col-lg-3 col-sm-4">
+                                <figure>
+                                    <a href={{pic.url}} data-fancybox="group" data-caption=""> <img class="img-responsive" ng-src={{pic.url}} alt="" /></a>
+                                </figure>
+                                <button type="button" ng-click="deleteFooterPic(pic)" class="pull-left btn btn-secondary btn-sm">Delete</button>
+                                <br> </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- Gallery -->
+                <div id="gallerysection" class="col-sm-12">
+                    <h4>Gallery Images</h4>
+                    <p>Click <strong>Choose File</strong> to select and add an image to the home page gallery.</p>
+                    <div class="form-group">
+                        <div class='col-lg-3 col-md-4 col-sm-6 col-xs-12'>
+                            <progress value="0" max="100" id="uploaderGallery">0%</progress>
+                            <input type="file" value="upload" id="fileGalleryButton" /> </div>
+                    </div>
+                </div>
+                <!-- optional gallery -->
+                <section id="main-gallery">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div ng-repeat="pic in company.gallerypics" class="col-lg-3 col-sm-4">
+                                <figure>
+                                    <a href={{pic.url}} data-fancybox="group" data-caption=""> <img class="img-responsive" ng-src={{pic.url}} alt="" /></a>
+                                </figure>
+                                <button type="button" ng-click="deleteGalleryPic(pic)" class="pull-left btn btn-secondary btn-sm">Delete</button>
+                                <br> </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div id="home-page-description" class="tab-pane fade">
+                <div class="col-sm-12">
+                    <h3>Description</h3>
+                    <p>Main page description text.</p>
+                    <textarea class="form-control" ui-tinymce="tinymceOptions" ng-model="company.homepagedescription">Enter the business description here. This is displayed on your homepage and should be a colorful, brief synopsis of your business and services.</textarea>
+                </div>
+            </div>
+            <div id="menu-overrides" class="tab-pane fade in">
+                <div class="container-fluid">
+                    <h3>Overrides</h3>
+                    <p>Optionally override titles/menus.</p>
+                    <div class="col-md-offset-2 col-md-8 col-xs-12">
+                        <div class="inner-section-wrapper">
+                            <div class="form-group">
+                                <label for="homeInput" class="col-form-label col-form-label-lg">Home</label>
+                                <input ng-model="company.menuhome" class="form-control input-lg" id='homeInput' type="text" placeholder="home menu override" data-toggle="tooltip" data-placement="bottom"> </div>
+                            <div class="form-group">
+                                <label for="appointmentInput" class="col-form-label col-form-label-lg">Appointment</label>
+                                <input ng-model="company.menuappointment" class="form-control input-lg" id='appointmentInput' type="text" placeholder="appointment menu override" data-toggle="tooltip" data-placement="bottom"> </div>
+                            <div class="form-group">
+                                <label for="servicesInput" class="col-form-label col-form-label-lg">Services</label>
+                                <input ng-model="company.menuservices" class="form-control input-lg" id='servicesInput' type="text" placeholder="services menu override" data-toggle="tooltip" data-placement="bottom"> </div>
+                            <div class="form-group">
+                                <label for="specialistsInput" class="col-form-label col-form-label-lg">Specialists</label>
+                                <input ng-model="company.menuspecialists" class="form-control input-lg" id='specialistsInput' type="test" placeholder="specialists menu override" data-toggle="tooltip" data-placement="bottom"> </div>
+                            <div class="form-group">
+                                <label for="contactInput" class="col-form-label col-form-label-lg">Contact</label>
+                                <input ng-model="company.menucontact" class="form-control input-lg" id='contactInput' type="text" placeholder="contact menu override" data-toggle="tooltip" data-placement="bottom"> </div>
+                            <div class="form-group">
+                                <label for="accountInput" class="col-form-label col-form-label-lg">Account</label>
+                                <input ng-model="company.menuaccount" class="form-control input-lg" id='accountInput' type="text" placeholder="account menu override" data-toggle="tooltip" data-placement="bottom"> </div>
+                            <div class="form-group">
+                                <label for="profileInput" class="col-form-label col-form-label-lg">Profile</label>
+                                <input ng-model="company.menuprofile" class="form-control input-lg" id='profileInput' type="text" placeholder="profile menu override" data-toggle="tooltip" data-placement="bottom"> </div>
+                            <div class="form-group">
+                                <label for="administratorInput" class="col-form-label col-form-label-lg">Administrator</label>
+                                <input ng-model="company.menuadmin" class="form-control input-lg" id='administratorInput' type="text" placeholder="admin menu override" data-toggle="tooltip" data-placement="bottom"> </div>
+                            <div class="form-group">
+                                <label for="loginInput" class="col-form-label col-form-label-lg">Login</label>
+                                <input ng-model="company.menulogin" class="form-control input-lg" class='loginInput' type="text" placeholder="login menu override" data-toggle="tooltip" data-placement="bottom"> </div>
+                            <div class="form-group">
+                                <label for="logoutInput" class="col-form-label col-form-label-lg">Logout</label>
+                                <input ng-model="company.menulogout" class="form-control input-lg" id='logoutInput' type="text" placeholder="logout menu override" data-toggle="tooltip" data-placement="bottom"> </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="main-sections" class="tab-pane fade in">
+                <div class="container-fluid">
+                    <h3>Main Page Features</h3>
+                    <p>Optionally show or hide sections of the main page.</p>
+                    <div class="col-md-offset-2 col-md-8 col-xs-12">
+                        <ul style='list-style-type: none;'>
+                            <li>
+                                <input ng-model='company.header.on' type="checkbox"> Header</li>
+                            <li>
+                                <input ng-model='company.description.on' type="checkbox"> Main Description</li>
+                            <li>
+                                <input ng-model='company.services.on' type="checkbox"> Services</li>
+                            <li>
+                                <input ng-model='company.specialists.on' type="checkbox"> Specialists</li>
+                            <li>
+                                <input ng-model='company.products.on' type="checkbox"> Products</li>
+                            <li>
+                                <input ng-model='company.gallery.on' type="checkbox"> Gallery</li>
+                            <li>
+                                <input ng-model='company.map.on' type="checkbox"> Map</li>
+                            <li>
+                                <input ng-model='company.search.on' type="checkbox"> Search Bar</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div id="color-selector" class="tab-pane fade in">
+                <div class="container-fluid">
+                    <h3>Color</h3>
+                    <p>Select highlight and menu bar colors.  The highlight color is used for buttons including appointment picker.</p>
+                    <!-- Highlight color colorpicker -->
+                    <div class="col-md-offset-2 col-md-8 col-sm-12">
+                        <div class="inner-section-wrapper">
+                            <div class="form-group"> Highlight Color:
+                                <input id='mycolorpicker' class="jscolor" ng-value="{{company.highlightcolor}}" ng-model="company.highlightcolor"> </div>
+                            <div class="form-group"> Menu Bar Color:
+                                <input id='mycolorpicker' class="jscolor" ng-value="{{company.navbarcolor}}" ng-model="company.navbarcolor"> </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Products -->
+            <div id="Product-add" class="tab-pane fade">
+                <div class="container-fluid">
+                    <h3>Products</h3>
+                    <p>Add, update and delete your products.</p>
+                    <div class='tab-wrap'>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Action</th>
+                                        <th>Name</th>
+                                        <th>Price</th>
+                                        <th>Quantity</th>
+                                        <th>SKU</th>
+                                        <th>Description</th>
+                                        <th>Picture</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <form name='addProdform' novalidate>
+                                            <td class="center-button">
+                                                <button type="button" ng-disabled="!addProdform.$valid" class="btn btn-secondary btn-sm" ng-click="addProdform.prodname && addProdform.prodprice ? addProduct(addProdform) : alert('failed')">Add</button>    
+                                            </td>
+                                            <td>
+                                                <input type="text" ng-model="addProdform.prodname" ng-required="true" class="form-control input-lg" placeholder="product name" /> 
+                                            </td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">$</span><input type="text" ng-model="addProdform.prodprice" class="form-control input-md" ng-required="true" placeholder="price" />
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <input type="text" ng-model="addProdform.prodquantity" ng-required="true" class="form-control input-lg" placeholder="quantity" /> 
+                                            </td>
+                                            <td>
+                                                <input type="text" ng-model="addProdform.prodsku" ng-required="true" class="form-control input-lg" placeholder="sku" /> 
+                                            </td>
+                                            <td>
+                                                <textarea class="form-control" ui-tinymce="tinymceOptions" ng-model="addProdform.description">Enter the product description here.</textarea>
+                                            </td>
+                                            <td>
+                                                <div class="text-center">
+                                                    <figure2><img class='img-repsonsive' src="/images/default.png" id="addProductImage"></figure2>
+                                                </div>
+                                                <progress value="0" max="100" id="produploader">0%</progress>
+                                                <input type="file" value="upload" id="fileProdButton" />
+                                                <button id="close-button" type="button" class="close">&times;</button>
+                                            </td>
+                                        </form>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-8">
+                            <div class="searchbox">
+                                <input class="form-control input-md" type="text" ng-model="prodquery" placeholder="search for a product" data-toggle="tooltip" data-placement="bottom"> </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Action</th>
+                                    <th>Name</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>SKU</th>
+                                    <th>Description</th>
+                                    <th>Picture</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="product in products | filter:prodquery">
+                                    <td class="center-button">
+                                        <button type="button" class="btn btn-secondary btn-sm" ng-click="deleteProduct(product)">Delete</button>
+                                    </td>
+                                    <td>
+                                        <input type="text" ng-model="product.prodname" ng-change="updateProduct(product);" class="form-control input-md full-width" /> </td>
+                                    <td>
+                                        <input type="text" ng-model="product.prodprice" ng-change="updateProduct(product);" class="form-control input-md full-width" /> </td>
+                                    
+                                    <td>
+                                        <input type="text" ng-model="product.prodquantity" ng-change="updateProduct(product);" class="form-control input-md full-width" /> </td>
+                                    <td>
+                                        <input type="text" ng-model="product.prodsku" ng-change="updateProduct(product);" class="form-control input-md full-width" /> </td>
+                                    <td>
+                                        <input type="text" ng-model="product.description" ng-change="products.$save(product)" class="form-control input-md full-width" /> </td>
+                                    <td>
+                                        <input type="text" ng-model="product.picURL" ng-change="products.$save(product)" class="form-control input-md full-width" /> </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div id="paypal-config" class="tab-pane fade in">
+                <div class="container-fluid">
+                    <h3>PayPal Configuration</h3>
+                    <div class="col-md-offset-2 col-md-8 col-xs-12">
+                        <div class="inner-section-wrapper">
+                            <div class="form-group">
+                                <label for="paypalemailInput" class="col-form-label col-form-label-lg">PayPal Email</label>
+                                <input ng-model="company.paypalemail" class="form-control input-lg" id='paypalemailInput' type="text" placeholder="paypal email" data-toggle="tooltip" data-placement="bottom"> </div>
+                            <div class="form-group">
+                                <label for="paypalshippingInput" class="col-form-label col-form-label-lg">Shipping cost</label>
+                                <input ng-model="company.paypalshipping" class="form-control input-lg" id='paypalshippingInput' type="text" placeholder="shipping cost" data-toggle="tooltip" data-placement="bottom"> </div>
+                            <div class="form-group">
+                                <label for="paypaltaxrateInput" class="col-form-label col-form-label-lg">Tax rate</label>
+                                <input ng-model="company.paypaltaxrate" class="form-control input-lg" id='paypaltaxrateInput' type="text" placeholder="tax rate" data-toggle="tooltip" data-placement="bottom"> </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- content tabs -->
+    </div>
+</div>
+
+<!-- Delete image Confirm Modal -->
+<div class="modal fade" id="modalDeleteImageConfirm">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h3>Delete Image Confirmation</h3>
+        </div>
+            <div class="modal-body">
+                <p><span id="modalSuccessAlert-body">Ok to delete image? Click Yes to delete.</span>
+                </p>
+            </div>
+            <div class="modal-footer"> <span class="pull-left" id="modalDeleteImageConfirm-footer"></span>
+                <button type="button" id="pf_modalYes" class="btn btn-danger btn-md" data-dismiss="modal">Yes</button>
+                <button type="button" class="btn btn-secondary btn-md" data-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Confirm Modal -->
+<div class="modal fade" id="modalDeleteConfirm">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h3>Delete User Confirmation</h3>
+        </div>
+            <div class="modal-body">
+                <p><span id="modalSuccessAlert-body">Ok to delete <span id="fullName"></span>? The data will be permanently removed from the database by clicking Yes!</span>
+                </p>
+            </div>
+            <div class="modal-footer"> <span class="pull-left" id="modalDeleteConfirm-footer"></span>
+                <button type="button" id="pf_modalYesDeleteUser" class="btn btn-danger btn-md" data-dismiss="modal">Yes</button>
+                <button type="button" class="btn btn-secondary btn-md" data-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Booking Confirm Modal -->
+<div class="modal fade" id="modalCancelConfirm">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Cancel Appointment Confirmation</h3>
+            </div>
+            <div class="modal-body">
+                <p id="modalSuccessAlert-body"></p>
+            </div>
+            
+            <span class='text-center'>
+                <p id="confspecialist"></p>
+                <p id="confservice"></p>
+                <p id="confbookdate"></p>
+            </span>
+            <div class="modal-footer">
+                <div id="modalDeleteConfirm-footer" class="pull-left">Cancel this appointment?</div>
+                <button type="button" id="pf_modalYes2" class="btn btn-danger btn-md" data-dismiss="modal">Yes</button>
+                <button type="button" id="pf_modalNo2" class="btn btn-secondary btn-md" data-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <script>
+        $('#timepicker .time').timepicker({
+            'showDuration': true
+            , 'timeFormat': 'g:ia'
+            , 'className': 'work-hours'
+        });
+    </script>

@@ -1,0 +1,23 @@
+<!-- Product Detail Page -->
+<div id="product-detail-page" ng-controller="ProductDetailController">
+        
+    <h1 class="header-style text-center text-uppercase">{{product.prodname}}</h1>
+    <hr align="center" width="98%" style="margin:auto; margin-bottom:60px;">
+    <section>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-4"><img class="img-fluid rounded" src="{{product.picURL}}"></div>
+                <div class="col-lg-8 col-md-8 col-sm-8">
+                    <div ng-bind-html="product.description | html"></div>
+                    <span class='clearfix'>Price: {{product.prodprice}}</span>
+                    
+                    <div class='row'>
+                        <div class='col-xl-4 col-lg-6 col-md-5 col-sm-12'>
+                            <ngcart-addtocart id="{{productID}}" name="{{product.prodname}}" price="{{product.prodprice}}" quantity='1' quantity-max='30'></ngcart-addtocart>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

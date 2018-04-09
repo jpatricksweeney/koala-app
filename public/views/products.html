@@ -1,0 +1,63 @@
+<span class="container-fluid" ng-controller="ProductsController">     
+    <div id="products-content"> 
+        <div class="container-fluid">
+            <div class="row">
+                <div class='col-sm-12 text-center'>
+                    <div class="btn-group mb-1">
+                        <button class="btn btn-elegant btn-block dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Filter by Brand</button>
+                        <div class="dropdown-menu">
+                            <a ng-repeat='brand in brands track by $index' class="dropdown-item" ng-click="setProdQuery(brand)">{{brand}}</a>
+                        </div>
+                    </div>
+                    <div class="btn-group mb-1">
+                        <button class="btn btn-elegant btn-block dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Filter Category</button>
+                        <div class="dropdown-menu">
+                            <a ng-repeat='cat in categories track by $index' class="dropdown-item" ng-click="setProdQuery(cat)">{{cat}}</a>
+                        </div>
+                    </div>
+                    <div class="btn-group mb-1">
+                        <button class="btn btn-elegant" type="button" ng-click="prodquery = ''">Clear Filter</button>
+                    </div>
+                    <div class="btn-group ml-1 mb-1 mt-2">
+                        <input type="number" min="1" max="100" class="form-control" ng-init='pageSize=12' ng-model="pageSize">
+                    </div>
+                    <div class="btn-group mb-1 mt-1">
+                        Items per page
+                    </div>
+                    <input class="form-control input-md mb-5" type="text" ng-model="prodquery" placeholder="filter" data-toggle="tooltip" data-placement="bottom">
+
+                </div>
+
+                <div class='col-12'></div>
+
+                <div dir-paginate="product in products | filter:prodquery | itemsPerPage:pageSize" class='col-md-3 col-sm-6 card-deck mb-5'>
+                    <div class='card mb-3'>
+                        <a ng-href="#product-detail/{{product.$id}}"> <img ng-src="{{product.picURL}}" class="img-fluid card-img-top m-0" alt="product picture"> </a>
+                        <div class='card-block'>
+                            <div class="card-text">
+                                <p></p>
+                                <h5 class='text-center'><a ng-href="#product-detail/{{product.$id}}">{{product.name}} {{product.price | currency}}</a></h5> </div>
+                        </div>
+                        <div class='card-footer'>
+                            <!--h5 class='text-center'><a ng-href="#product-detail/{{product.$id}}">{{product.prodname}} {{product.prodprice | currency}}</a></h5-->
+                            <ngcart-addtocart id="{{product.$id}}" name="{{ product.name }}" price="{{ product.price }}" quantity='1' quantity-max='{{product.quantity}}'></ngcart-addtocart>
+                        </div>
+                    </div>
+                </div>
+                <div class='col-12'></div>
+                <div class='container-fluid'>
+                <div class='row'>
+                <div class='col-sm-12 text-center'>
+                    <dir-pagination-controls
+                        max-size=pageSize
+                        direction-links="true"
+                        boundary-links="true" 
+                        template-url="/views/dirPagination.tpl.html">
+                    </dir-pagination-controls>
+                </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>   
+</span>

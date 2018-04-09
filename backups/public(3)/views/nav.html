@@ -1,0 +1,24 @@
+<div ng-controller="NavController">
+    <div class="container-fluid">
+        <nav id="main-nav" class="navbar fixed-top navbar-inverse navbar-toggleable-sm">
+            <button id="hamburger-button" class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#myMenu" aria-controls="myMenu" aria-expanded="false" aria-label="Toggle Navigation"><span class="navbar-toggler-icon"></span></button>
+            <a href="#" class="navbar-brand"><img class="mr-2" src="{{company.logopic}}" id='nav-company-logo'> <span id='nav-company-name'>{{company.name}}</span></a>
+            <div class="collapse navbar-collapse" id="myMenu">
+                <ul class="nav navbar-nav ml-auto">
+                    <li class='nav-item'><a class="nav-link active" tabindex="0" href="#">{{company.menuhome}}</a></li>
+                    <li><a class="nav-link" ng-hide="currentUser" tabindex="4" href="#login" ng-click="login()">{{company.menulogin}}</a></li>
+                    <li><a class="nav-link" ng-show="currentUser" href="#account">{{company.menuaccount}}</a></li>
+                    <li><a class="nav-link" ng-show="currentUser && isSpecialist" href="#profile">{{company.menuprofile}}</a></li>
+                    <li><a class="nav-link" ng-show="currentUser && isAdmin" href="#admin">{{company.menuadmin}}</a></li>
+                    <li><a class="nav-link" ng-show="currentUser" href="#" ng-click="logout()">{{company.menulogout}}</a></li>
+                </ul>
+                <span class='navbar-text mt-1 ml-md-4 mr-5'>{{company.number}}</span>
+                <a ng-show='company.products.on' href="#cart">
+                    <ngcart-summary></ngcart-summary>
+                </a>
+            </div>
+        </nav>
+    </div>   
+</div>
+
+

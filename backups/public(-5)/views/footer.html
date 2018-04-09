@@ -1,0 +1,19 @@
+<footer id='myfooter' class="container-fluid" ng-controller="FooterController">
+          
+    
+    <h1>{{company.name}}</h1><br>
+    <address>
+        <div class="text-center" style='font-size:20px;'>
+        {{company.address}} <br>{{company.city}}, {{company.state}} {{company.zip}}<br>
+        {{company.number}}
+        </div>
+    </address>
+
+    <a ng-show='company.facebook' target="_blank" href="{{company.facebook}}"><i href="#" class="fa fa-facebook rounded"></i></a> <a ng-show='company.twitter' target="_blank" href="{{company.twitter}}"><i href="#" class="fa fa-twitter rounded" style='padding-left:17px;'></i></a> <a ng-show='company.instagram' target="_blank" href="{{company.instagram}}"><i href="#" class="fa fa-instagram rounded" style='padding-left:17px;'></i></a> <a ng-show='company.google' target="_blank" href="{{company.google}}"><i href="#" class="fa fa-google rounded" style='padding-left:17px;'></i></a> <a ng-show='company.email' href="mailto:{{company.email}}"><i href="#" class="fa fa-envelope rounded" style='padding-left:16px; background-color:grey'></i></a>                         
+
+    <div class="text-center cpright">© {{company.copyright}} {{company.name}}</div>
+
+    
+</footer> 
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">

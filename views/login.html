@@ -1,0 +1,60 @@
+<div id="login" ng-controller="CredentialsController">
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-xl-4 col-lg-6 col-md-8 col-sm-8 col-xs-12">
+            <form name="myform" ng-submit="login()" novalidate>
+                <div>
+                    <h1 class="text-uppercase text-center">Login</h1>
+                    <p style='font-size:18px;' ng-show="message">{{message}}</p>
+                </div>
+                <fieldset>
+                    <div class="form-group">
+                        <label for="usr">Name:</label>
+                        <input type='email' name='email' placeholder='email' ng-model="user.email" ng-required="true" class="form-control input-lg" id="usr">
+                        <p class="validationerror" ng-show="myform.email.$invalid && myform.email.$touched">Please enter a valid email address</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="pwd">Password:</label>
+                        <input type='password' name='password' placeholder='password' ng-model="user.password" ng-required="true" class="form-control input-lg" id="pw">
+                        <p class="validationerror" ng-show="myform.password.$invalid && myform.password.$touched">A password is required</p>
+                    </div>
+                </fieldset>
+                
+                <button type="submit" class="btn" ng-disabled="myform.$invalid">Log in</button>
+
+                <div class="login-reg"><a class="pull-left" href="#register">Register</a><a class="pull-right" href="" role="button" data-toggle="modal" data-target="#myModalPasswordReset">Forgot password?</a></div>
+            </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Password Reset Modal -->
+<div class="modal fade" id="myModalPasswordReset" ng-controller="CredentialsController">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">
+                        Password Reset
+                </h4> 
+            </div>
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <form name="myform" novalidate>
+                    <div class="form-group">
+                        <input type="email" name="email" ng-model="user.email" ng-required="true" id="txtEmailReset" class="form-control input-sm" placeholder="Email Address" style='margin-top:18px;'> 
+                        <button id="btnEmailReset" ng-disabled="myform.$invalid" ng-click="pwReset(user.email)" style='margin-top:20px;' type="button" value="Send reset email" class="btn btn-default btn-block"> Send reset email </button>
+                        <p class='text-center' style='margin-top:18px;'>We'll send you an email with a password reset link.</p>
+                    </div>
+                </form>
+            </div>
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-md" data-dismiss="modal"> Close </button>
+            </div>
+        </div>
+    </div>
+</div>  
+

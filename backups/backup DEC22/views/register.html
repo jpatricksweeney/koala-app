@@ -1,0 +1,40 @@
+<div id="register" ng-controller="CredentialsController">
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-xl-4 col-lg-6 col-md-8 col-sm-8 col-xs-12">
+                <form name="myform" ng-submit="register()" novalidate>
+                    <div>
+                        <h1 class="text-uppercase text-center">Register</h1>
+                        <p style='font-size:18px; font-weight:900;' ng-show="message">{{message}}</p>
+                    </div>
+                    <fieldset>
+                        <div class="form-group">
+                            <label for="fname">First Name:</label>
+                            <input type="text" name="firstname" placeholder="First Name" ng-model="user.firstname" ng-required="true" class="form-control input-lg" id="fname">
+                            <p class="error validationerror" ng-show="myform.firstname.$invalid && myform.firstname.$touched">First name is required</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="lname">Last Name:</label>
+                            <input type="text" name="lastname" placeholder="Last Name" ng-model="user.lastname" ng-required="true" class="form-control input-lg" id="lname">
+                            <p class="error validationerror" ng-show="myform.lastname.$invalid && myform.lastname.$touched">Last name is required</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email-addr">Email Address:</label>
+                            <input type='email' name='email' placeholder='email' ng-model="user.email" ng-required="true" class="form-control input-lg" id="email-addr">
+                            <p class="validationerror" ng-show="myform.email.$invalid && myform.email.$touched">Must be a valid email address</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="p-word">Password:</label>
+                            <input type='password' name='password' placeholder='password' ng-model="user.password" ng-required="true" class="form-control input-lg" id="p-word">
+                            <p class="validationerror" ng-show="myform.password.$invalid && myform.password.$touched">A password is required</p>
+                        </div>
+                    </fieldset>
+                    <button type="submit" class="btn" ng-disabled="myform.$invalid">Register</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,43 @@
+<!--Footer-->
+<footer id='myfooter' class="page-footer center-on-small-only stylish-color-dark" ng-show='company.footer.on' ng-controller="FooterController">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h2 class="title mb-4 mt-5 font-bold">{{company.name}}</h2>
+                <address>
+                    {{company.address}} <br>{{company.city}}<span ng-if='company.city.length > 0'>,</span> {{company.state}} {{company.zip}}<br>
+                    {{company.number}}
+                </address>
+            </div>
+        </div>
+    </div>
+
+    <div class="call-to-action">
+        <ul>
+            <li>
+                <h5 class="mb-1">Register for free</h5>
+            </li>
+            <li><a href="#register" class="btn btn-danger btn-rounded">Sign up!</a></li>
+        </ul>
+    </div>
+
+    <div class="social-section social text-center">
+        <ul>
+            <li><a ng-show='company.facebook' target="_blank" href="{{company.facebook}}"><i href="#" class="fa fa-facebook"></i></a></li>
+            <li><a ng-show='company.twitter' target="_blank" href="{{company.twitter}}"><i href="#" class="fa fa-twitter"></i></a></li>
+            <li><a ng-show='company.instagram' target="_blank" href="{{company.instagram}}"><i href="#" class="fa fa-instagram"></i></a></li>
+            <li><a ng-show='company.google' target="_blank" href="{{company.google}}"><i href="#" class="fa fa-google"></i></a></li>
+            <li><a ng-show='company.email' href="mailto:{{company.email}}"><i href="#" class="fa fa-envelope"></i></a></li>
+        </ul>
+    </div>
+
+    <div class="footer-copyright">
+        <div class="container-fluid">
+            © {{company.copyright}} Copyright: <a href="#">  {{company.name}}</a>
+        </div>
+    </div>
+
+</footer>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">

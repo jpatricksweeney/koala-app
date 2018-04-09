@@ -1,0 +1,19 @@
+<div ng-hide="attrs.id">
+    <a class="btn btn-lg btn-primary" ng-disabled="true" ng-transclude></a>
+
+</div>
+<div ng-show="attrs.id">
+    <div>
+        <span class='pull-left' style='margin-top:2px;' ng-show="quantityMax">
+            <select name="quantity" id="quantity" ng-model="q"
+                    ng-options=" v for v in qtyOpt"></select>
+        </span>
+        <a ng-show="!inCart()" class="btn btn-md pull-right btn-secondary"
+           ng-click="ngCart.addItem(id, name, price, q, data)"
+           ng-transclude>Add to cart
+        </a>
+        <mark  ng-show="inCart()">
+            <a ng-click="ngCart.removeItemById(id)" class="btn btn-md pull-right btn-secondary">Remove from cart</a>
+        </mark>
+    </div>
+</div>

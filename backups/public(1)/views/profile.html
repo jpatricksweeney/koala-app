@@ -1,0 +1,548 @@
+<div id="profile-page" ng-controller="ProfileController">
+    <div class='container-fluid'>
+        <form class="form-horizontal" id="profileform" name="profileform" novalidate>
+            <h2 style='display:inline;'>Profile</h2>
+            <h2 class='pull-right'>{{user.firstname}} {{user.lastname}}</h2>
+            
+            <p>Update your profile including contact information, your profile picture, business hours, a personal bio, and your social media accounts. You can also select the services provided and view your appointments.</p>
+            
+            <div id='displayProf'><input type="checkbox" ng-model='user.active'> Display your profile on our website? Check to display, uncheck to hide.</div>
+        
+            <ul class="nav nav-tabs flex-wrap">
+                <li class="nav-item"><a class="nav-link active" data-toggle="tab" data-target='#contact'>Contact</a></li>
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" data-target='#picture'>Picture</a></li>
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" data-target='#about'>About</a></li>
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" data-target='#hours'>Hours</a></li>
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" data-target='#social'>Social</a></li>
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" data-target='#gallery'>Gallery</a></li>
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" data-target='#services'>Select Services</a></li>
+                <li ng-show='user.serviceUpdateAccess' class='nav-item'><a class='nav-link' data-toggle='tab' data-target='#service-config'>Add/Delete Services</a></li>
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" data-target='#appointments'>Appointments</a></li>
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" data-target='#canceled-appointments'>Canceled Appointments</a></li>
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" data-target='#day-glance'>Day View</a></li>
+            </ul>
+            <!-- CONTACT -->
+            <div class="tab-content">
+                <div id="contact" class="tab-pane fade in active show">
+                    <div class="col-md-offset-2 col-md-8">
+                
+                            <h3>Contact Info</h3>
+                            <div class="form-group">
+                                    <label for="firstNameInput" class="col-form-label col-form-label-lg">First Name</label>
+                                    <input ng-model="user.firstname" class="form-control input-lg" id='firstNameInput' type="text" placeholder="first name" data-toggle="tooltip" data-placement="bottom">
+                            </div>
+                            <div class="form-group">
+                                    <label for="lastNameInput" class="col-form-label col-form-label-lg">Last Name</label>
+                                    <input ng-model="user.lastname" class="form-control input-lg" id='lastNameInput' type="text" placeholder="last name" data-toggle="tooltip" data-placement="bottom">
+                            </div>
+                            <div class="form-group">
+                          
+                                    <label for="titleInput" class="col-form-label col-form-label-lg">Title</label>
+                                    <input ng-model="user.title" class="form-control input-lg" id='titleInput' type="text" placeholder='for example "Hair Stylist"' data-toggle="tooltip" data-placement="bottom">
+                            </div>
+                            <div class="form-group">
+                                   
+                                    <label for="mobileInput" class="col-form-label col-form-label-lg">Mobile Number</label>
+                                    <input ng-model="user.mobile" class="form-control input-lg" id='mobileInput' type="tel" placeholder="mobile number" data-toggle="tooltip" data-placement="bottom">
+                            </div>
+                            <div class="form-group">
+                             
+                                    <label for="emailInput" class="col-form-label col-form-label-lg">Email</label>
+                                    <input ng-model="user.email" class="form-control input-lg" id='emailInput' type="email" placeholder="email" data-toggle="tooltip" data-placement="bottom">
+                            </div>
+                            <div class="form-group">
+
+                                    <label for="websiteInput" class="col-form-label col-form-label-lg">My Website</label>
+                                    <input ng-model="user.website" class="form-control input-lg" id='websiteInput' type="text" placeholder="website url" data-toggle="tooltip" data-placement="bottom">
+                            </div>
+                        
+                    </div>
+                    <!-- Contact Information -->
+                </div>
+                <!-- SOCIAL MEDIA -->
+                <div id="social" class="tab-pane fade">
+                    <div class="col-lg-6 col-md-4 col-sm-12">
+                        <h3>Social Media</h3>
+                        <div class="form-group">
+                                <label for="fbInput" class="col-form-label col-form-label-lg">Facebook ID</label>
+                                <input ng-model="user.facebook" class="form-control input-lg" id='fbInput' type="text" placeholder="Facebook id" data-toggle="tooltip" data-placement="bottom">
+                        </div>
+                        <div class="form-group">
+                                <label for="twitterInput" class="col-form-label col-form-label-lg">Twitter ID</label>
+                                <input ng-model="user.twitter" class="form-control input-lg" id='twitterInput' type="text" placeholder="Twitter id" data-toggle="tooltip" data-placement="bottom"> 
+                        </div>
+                        <div class="form-group">
+
+                                <label for="instagramInput" class="col-form-label col-form-label-lg">Instagram ID</label>
+                                <input ng-model="user.instagram" class="form-control input-lg" id='instagramInput' type="text" placeholder="Instagram id" data-toggle="tooltip" data-placement="bottom"> 
+                        </div>
+                        <div class="form-group">
+                                <label for="googleInput" class="col-form-label col-form-label-lg">Google+ ID</label>
+                                <input ng-model="user.google" class="form-control input-lg" id='googleInput' type="text" placeholder="Google+ id" data-toggle="tooltip" data-placement="bottom"> 
+                        </div>
+                    </div>
+                </div>
+                <!-- BUSINESS HOURS -->
+                <div id="hours" class="tab-pane fade">
+                    <div class="col-lg-6 col-md-4 col-sm-12">
+    
+                            <h3>Hours</h3>
+                            <!-- Monday -->
+                            <div id="biz-hours" class="form-group">
+                                <label for="mondayInput" class="col-form-label col-form-label-lg">Monday</label>
+                                <input ng-model='user.monday.on' id='mondayInput' type="checkbox">
+                                <div ng-show="user.monday.on" id="timepicker" class="col-lg-4">
+                                    <input ng-model="user.monday.start" ng-change="checkTimes(user.monday);" type="text" class="time start form-control input-lg" /> </div>
+                                <div ng-show="user.monday.on" id="timepicker" class="col-lg-4">
+                                    <input ng-model="user.monday.end" ng-change="checkTimes(user.monday);" type="text" class="time end form-control input-lg" /> </div>
+                            </div>
+                            <!-- Tuesday -->
+                            <div class="form-group">
+                                <label for="tuesdayInput" class="col-form-label col-form-label-lg">Tuesday</label>
+                                <input ng-model='user.tuesday.on' id='tuesdayInput' type="checkbox"> 
+                                <div ng-show="user.tuesday.on" id="timepicker" class="col-lg-4">
+                                    <input ng-model="user.tuesday.start" ng-change="checkTimes(user.tuesday);" type="text" class="time start form-control input-lg" /> </div>
+                                <div ng-show="user.tuesday.on" id="timepicker" class="col-lg-4">
+                                    <input ng-model="user.tuesday.end" ng-change="checkTimes(user.tuesday);" type="text" class="time end form-control input-lg" /> </div>
+                            </div>
+                            <!-- Wednesday -->
+                            <div class="form-group">
+                                <label for="wednesdayInput" class="col-form-label col-form-label-lg">Wednesday</label>
+                                <input ng-model='user.wednesday.on' id='wednesdayInput' type="checkbox"> 
+                                <div ng-show="user.wednesday.on" id="timepicker" class="col-lg-4">
+                                    <input ng-model="user.wednesday.start" ng-change="checkTimes(user.wednesday);" type="text" class="time start form-control input-lg" /> </div>
+                                <div ng-show="user.wednesday.on" id="timepicker" class="col-lg-4">
+                                    <input ng-model="user.wednesday.end" ng-change="checkTimes(user.wednesday);" type="text" class="time end form-control input-lg" /> </div>
+                            </div>
+                            <!-- Thursday -->
+                            <div class="form-group">
+                                <label for="thursdayInput" class="col-form-label col-form-label-lg">Thursday</label>
+                                <input ng-model='user.thursday.on' id='thursdayInput' type="checkbox"> 
+                                <div ng-show="user.thursday.on" id="timepicker" class="col-lg-4">
+                                    <input ng-model="user.thursday.start" ng-change="checkTimes(user.thursday);" type="text" class="time start form-control input-lg" /> </div>
+                                <div ng-show="user.thursday.on" id="timepicker" class="col-lg-4">
+                                    <input ng-model="user.thursday.end" ng-change="checkTimes(user.thursday);" type="text" class="time end form-control input-lg" /> </div>
+                            </div>
+                            <!-- Friday -->
+                            <div class="form-group">
+                                <label for="fridayInput" class="col-form-label col-form-label-lg">Friday</label>
+                                <input ng-model='user.friday.on' id='fridayInput' type="checkbox"> 
+                                <div ng-show="user.friday.on" id="timepicker" class="col-lg-4">
+                                    <input ng-model="user.friday.start" ng-change="checkTimes(user.friday);" type="text" class="time start form-control input-lg" /> </div>
+                                <div ng-show="user.friday.on" id="timepicker" class="col-lg-4">
+                                    <input ng-model="user.friday.end" ng-change="checkTimes(user.friday);" type="text" class="time end form-control input-lg" /> </div>
+                            </div>
+                            <!-- Saturday -->
+                            <div class="form-group">
+                                <label for="saturdayInput" class="col-form-label col-form-label-lg">Saturday</label>
+                                <input ng-model='user.saturday.on' id='saturdayInput' type="checkbox"> 
+                                <div ng-show="user.saturday.on" id="timepicker" class="col-lg-4">
+                                    <input ng-model="user.saturday.start" ng-change="checkTimes(user.saturday);" type="text" class="time start form-control input-lg" /> </div>
+                                <div ng-show="user.saturday.on" id="timepicker" class="col-lg-4">
+                                    <input ng-model="user.saturday.end" ng-change="checkTimes(user.saturday);" type="text" class="time end form-control input-lg" /> </div>
+                            </div>
+                            <!-- Sunday -->
+                            <div class="form-group">
+                                <label for="sundayInput" class="col-form-label col-form-label-lg">Sunday</label>
+                                <input ng-model='user.sunday.on' id='sundayInput' type="checkbox"> 
+                                <div ng-show="user.sunday.on" id="timepicker" class="col-lg-4">
+                                    <input ng-model="user.sunday.start" ng-change="checkTimes(user.sunday);" type="text" class="time start form-control input-lg" /> </div>
+                                <div ng-show="user.sunday.on" id="timepicker" class="col-lg-4">
+                                    <input ng-model="user.sunday.end" ng-change="checkTimes(user.sunday);" type="text" class="time end form-control input-lg" /> </div>
+                            </div>
+                    </div>
+                </div>
+                <!-- PROFILE PICTURE -->
+                <div id="picture" class="tab-pane fade">
+                    <h3>Profile Picture</h3>
+                    <div class="form-group">
+                        <div class="col-lg-4 col-md-6 col-sm-12">
+
+                            <img class='img-fluid rounded' id="addProfileImage">
+                            <button ng-hide="user.profilepic == ''" ng-click="deleteProfilePic()" type="button" class="pull-left btn btn-secondary btn-sm">Delete</button> 
+                            <progress ng-hide="user.profilepic != ''" value="0" max="100" id="uploaderProfile">0%</progress>
+                            <input ng-hide="user.profilepic != ''" type="file" value="upload" id="fileButton" /> 
+                        </div>
+                    </div>
+                </div>
+                <div id="about" class="tab-pane fade">
+                    <div class="col-sm-12">
+                        <h3>About Me</h3>
+                        <p>Enter your bio here.</p>
+                        <div class="form-group">
+                            <textarea class="form-control" ui-tinymce="tinymceOptions" ng-model="user.about">Enter your profile information here.</textarea>
+                        </div>
+                    </div>
+                </div>
+                <div id="gallery" class="tab-pane fade">
+                    <div class="col-sm-12">
+                        <h3>My Gallery</h3>
+                        <p>Click <strong>Choose File</strong> to select and add an image to your gallery.</p>
+                        <div class="form-group">
+                            <div class='col-lg-3 col-md-4 col-sm-6 col-xs-12'>
+                                <progress value="0" max="100" id="uploaderGallery">0%</progress>
+                                <input type="file" value="upload" id="fileGalleryButton" /> 
+                            </div>
+                        </div>
+                    </div>
+                    <!-- MY GALLERY -->
+                    <section id="profile-gallery">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div ng-repeat="pic in user.gallery" class="col-lg-3 col-sm-4">
+                                    <figure>
+                                        <a href={{pic.url}} data-fancybox="group" data-caption=""> <img class="img-responsive rounded" ng-src={{pic.url}} alt="" /></a>
+                                    </figure>
+                                    <button type="button" ng-click="deleteGalleryPic(pic)" class="pull-left btn btn-secondary btn-sm">Delete</button>
+                                    <br> 
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <!-- MY SERVICES -->
+                <div id="services" class="tab-pane fade">
+                    <div class="container-fluid">
+                        <h3>Select your Services</h3>
+                        <div class="row">
+                            <div class="col-sm-4 col-xs-8">
+                                <div class="searchbox">
+                                    <input class="form-control input-md" type="text" ng-model="userquery" placeholder="keyword search" data-toggle="tooltip" data-placement="bottom"> </div>
+                            </div>
+                        </div>
+                        <section id="services-section" ng-repeat="service in services | orderBy:'servicecategory'">
+                            <h3>{{service.servicecategory}}</h3>
+                            <div class="col-md-12">
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <th>Select</th>
+                                            <th>Category</th>
+                                            <th>Name</th>
+                                            <th>Pricing</th>
+                                            <th>Duration</th>
+                                            <th>Description</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody ng-repeat="s1 in services | orderBy:'s1.servicecategory'">
+                                    
+                                            <tr ng-repeat="s2 in s1.servicelist | orderBy:['category','name'] | filter:userquery track by $index">
+                                                <td ng-show="service.servicecategory === s2.servicecategory">
+                                                    <input type="checkbox" ng-model='s2.on' ng-checked='s2.on == true' ng-click="toggleService(s2)">
+                                                </td>
+                                                <td ng-show="service.servicecategory === s2.servicecategory"><span class="pull-left">{{s2.category}}</span></td>
+                                                <td ng-show="service.servicecategory === s2.servicecategory"><span class="pull-left">{{s2.name}}</span></td>
+                                                <td ng-show="service.servicecategory === s2.servicecategory"><span class="pull-left"><input type=text class='form-control input-md full-width' ng-model="s2.pricing" value={{s2.pricing}} ng-change="updatePricing(s2)"></span></td>
+                                                <td ng-show="service.servicecategory === s2.servicecategory"><select class="srvchours" ng-model="s2.hours" ng-options="x for x in hours" ng-change="updateDuration(s2)"></select><select ng-model="s2.minutes" ng-options="y for y in minutes" ng-change="updateDuration(s2)"></select></td>
+                                                <td ng-show="service.servicecategory === s2.servicecategory">
+                                                    <button ng-disabled='!s2.on' type="button" class="btn btn-secondary btn-sm center-block" ng-click="editServiceDescription(s2)">Edit</button>
+                                                </td>
+                                            </tr>
+                                           
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                
+            <div id="service-config" class="tab-pane fade" ng-show='user.serviceUpdateAccess'>
+                <div class="container-fluid">
+                    <h3>Add/Delete Services</h3>
+                    <div class='tab-wrap'>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Action</th>
+                                        <th>Service Category</th>
+                                        <th>Subcategory</th>
+                                        <th>Service</th>
+                                        <th>Pricing info</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <form name='addServiceform'>
+                                            <td class="center-button">
+                                                <button type="button" class="btn btn-secondary btn-sm" ng-click="addServiceform.servicecategory && addServiceform.category && addServiceform.name ? addService(addServiceform) : alert('failed')">Add</button>
+                                            </td>
+                                            <td class="center-button">
+                                                <select ng-model="addServiceform.servicecategory" class="custom-select">
+                                                    <option ng-repeat="x in globalservices">{{x.servicecategory}}</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <input type="text" ng-model="addServiceform.category" ng-required="true" class="form-control input-lg" placeholder="subcategory" /> </td>
+                                            <td>
+                                                <input type="text" ng-model="addServiceform.name" ng-required="true" class="form-control input-lg" placeholder="service" /> </td>
+                                            <td>
+                                                <input type="text" ng-model="addServiceform.pricing" class="form-control input-lg" placeholder="pricing" /> </td>
+                                        </form>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-8">
+                            <div class="searchbox">
+                                <input class="form-control input-md" id="formGroupInputLarge" type="text" ng-model="servquery" placeholder="keyword search" data-toggle="tooltip" data-placement="bottom"> </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Action</th>
+                                    <th>Service Category</th>
+                                    <th>Subcategory</th>
+                                    <th>Service</th>
+                                    <th>Pricing info</th>
+                                </tr>
+                            </thead>
+                            <tbody ng-repeat="s1 in globalservices | filter:servquery">
+                                <tr ng-repeat="(key,s2) in s1.servicelist">
+                                    <td>
+                                        <button type="button" class="btn btn-secondary btn-sm" ng-click="deleteService(s1,s2,key)">Delete</button>
+                                    </td>
+                                    <td>{{s2.servicecategory}}</td>
+                                    <td>
+                                        <input type="text" ng-model="s2.category" ng-change="updateServ(s1,s2,key)" class="form-control input-md full-width" />
+                                    </td>
+                                    <td>
+                                        <input type="text" ng-model="s2.name" ng-change="updateServ(s1,s2,key)" class="form-control input-md full-width" /> 
+                                    </td>
+                                    <td>
+                                        <input type="text" ng-model="s2.pricing" ng-change="updateServ(s1,s2,key)" class="form-control input-md full-width" />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>                
+                
+                
+                <!-- MY SERVICES -->
+                <!-- MY APPOINTMENTS -->
+                <div id="appointments" class="tab-pane fade">
+                    <div>
+                        <h3>My Appointments</h3>
+                        <div class="row">
+                            <div class="col-sm-4 col-xs-8">
+                                <div class="searchbox">
+                                    <input class="form-control input-md" type="text" ng-model="userquery" placeholder="keyword search" data-toggle="tooltip" data-placement="bottom">
+                                    <br> <span><input type='checkbox' ng-init='hidePastAppointments=true' ng-model='hidePastAppointments'> Hide Past Appointments</span>
+                                    <br> <span><input type='checkbox' ng-init='hideBlockedAppointments=true' ng-model='hideBlockedAppointments'> Hide Blocking Appointments</span>
+                                    <br> </div>
+                            </div>
+                        </div>
+                        <section id="appointment-section">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="row">
+                                            <div class="table-responsive">
+                                                <table id='servtable' class="table table-striped table-bordered">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Action</th>
+                                                        <th>Client</th>
+                                                        <th>Date/time</th>
+                                                        <th>Service</th>
+                                                        <th>Duration</th>
+                                                        <th>Client email</th>
+                                                        <th>Client mobile #</th>
+                                                        <th>Date Booked</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr ng-repeat="appointment in appointments  | orderBy:'sortDate' | filter:userquery | filter:appointmentFilter | filter:blockFilter">
+                                                            <td>
+                                                                <button type="button" class="btn btn-secondary btn-sm" ng-click="cancelAppointment(appointment)">Cancel</button>
+                                                            </td>
+                                                            <td><span class="pull-left">{{appointment.client}}</span></td>
+                                                            <td><span class="pull-left">{{appointment.date}}</span></td>
+                                                            <td><span class="pull-left">{{appointment.service}}</span></td>
+                                                            <td><span class="pull-left">{{appointment.minutesToComplete}}</span></td>
+                                                            <td><span class="pull-left">{{appointment.clientEmail}}</span></td>
+                                                            <td><span class="pull-left">{{appointment.clientMobile}}</span></td>
+                                                            <td><span class="pull-left">{{appointment.dateBooked}}</span></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <!-- MY APPOINTMENTS -->
+                
+                
+                <div id="day-glance" class="tab-pane fade">
+                    <div class='row'>
+                        <div class="col-sm-12">
+                            <h3 id='bookingMessage' class='text-center mb-2' style='margin-top:-3px;'>{{dayGlanceDate}}</h3>
+                            <div class='pull-left'><button type="button" class="btn btn-secondary btn-sm" ng-click="displayPrevDayGlance()">prev</button></div><div class='pull-right'><button type="button" class="btn btn-secondary btn-sm" ng-click="displayNextDayGlance()">next</button></div>
+                            <h4 class='text-center' id='displayHours'></h4>
+                            <div class='mt-4'>
+                                <div id="daychart" class='chart'></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>           
+                
+                <!-- CANCELED APPOINTMENTS -->
+                <div id="canceled-appointments" class="tab-pane fade">
+    
+                        <h3>Canceled Appointments</h3>
+                        <div class="row">
+                            <div class="col-sm-4 col-xs-8">
+                                <div class="searchbox">
+                                    <input class="form-control input-md" type="text" ng-model="canceledquery" placeholder="keyword search" data-toggle="tooltip" data-placement="bottom">
+                                    <br> </div>
+                            </div>
+                        </div>
+                        <section id="appointment-section">
+                            
+                                    <div class="col-sm-12">
+                                        <div class="row">
+                                            <div class="table-responsive">
+                                                <table id='servtable' class="table table-striped table-bordered">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Client</th>
+                                                        <th>Booked With</th>
+                                                        <th>Date/time</th>
+                                                        <th>Service</th>
+                                                        <th>Duration</th>
+                                                        <th>Client email</th>
+                                                        <th>Client mobile #</th>
+                                                        <th>Date Booked</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr ng-repeat="cancel in cancels  | orderBy:'canceldateOrder' | filter:canceledquery">
+                                                            <td><span class="pull-left">{{cancel.client}}</span></td>
+                                                            <td><span class="pull-left">{{cancel.specialist}}</span></td>
+                                                            <td><span class="pull-left">{{cancel.date}}</span></td>
+                                                            <td><span class="pull-left">{{cancel.service}}</span></td>
+                                                            <td><span class="pull-left">{{cancel.minutesToComplete}}</span></td>
+                                                            <td><span class="pull-left">{{cancel.clientEmail}}</span></td>
+                                                            <td><span class="pull-left">{{cancel.clientMobile}}</span></td>
+                                                            <td><span class="pull-left">{{cancel.dateBooked}}</span></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                             
+                        </section>
+        
+                </div>
+                <!-- CANCELED APPOINTMENTS -->
+            </div>
+            <!-- tabbed content -->
+        </form>
+    </div>
+    <!-- Service Modal for Description edit -->
+    <div class="modal fade" id="modalEditDescription">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div> <span id="modalEditDescription-servicecategory"></span> <span id="modalEditDescription-category"></span> <span id="modalEditDescription-name"></span> <span id="modalEditDescription-pricing"></span> </div>
+                <div class="modal-body">
+                    <textarea id='myservicedescription' class="form-control" ui-tinymce="tinymceOptions" ng-model="myservdesc">Enter the details of your service here</textarea>
+                </div>
+                <div class="modal-footer"> <span class="pull-left" id="modalEditDescription-footer"></span>
+                    <button id="modalEditDescription-save" type="button" class="btn btn-info btn-md" data-dismiss="modal">Close and save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- wrapper -->
+
+<!-- Delete image Confirm Modal -->
+<div class="modal fade" id="modalDeleteImageConfirm">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h3>Delete Image Confirmation</h3>
+        </div>
+            <div class="modal-body">
+                <p><span id="modalSuccessAlert-body">Ok to delete image? Click Yes to delete.</span>
+                </p>
+            </div>
+            <div class="modal-footer"> <span class="pull-left" id="modalDeleteImageConfirm-footer"></span>
+                <button type="button" id="pf_modalYes" class="btn btn-danger btn-md" data-dismiss="modal">Yes</button>
+                <button type="button" class="btn btn-secondary btn-md" data-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Confirm Modal -->
+<div class="modal fade" id="modalDeleteConfirm">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p><span id="modalSuccessAlert-body">Ok to delete <span id="fullName"></span>? The data will be permanently removed from the database by clicking Yes!</span>
+                </p>
+            </div>
+            <div class="modal-footer"> <span class="pull-left" id="modalDeleteConfirm-footer"></span>
+                <button type="button" id="pf_modalYes" class="btn btn-warning btn-md" data-dismiss="modal">Yes</button>
+                <button type="button" class="btn btn-info btn-md" data-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Booking Confirm Modal -->
+<div class="modal fade" id="modalCancelConfirm">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Cancel Appointment Confirmation</h3>
+            </div>
+            <div class="modal-body">
+                <p id="modalSuccessAlert-body"></p>
+            </div>
+            
+            <span class='text-center'>
+                <p id="confspecialist"></p>
+                <p id="confservice"></p>
+                <p id="confbookdate"></p>
+            </span>
+            <div class="modal-footer">
+                <div id="modalDeleteConfirm-footer" class="pull-left">Cancel this appointment?</div>
+                <button type="button" id="pf_modalYes2" class="btn btn-danger btn-md" data-dismiss="modal">Yes</button>
+                <button type="button" id="pf_modalNo2" class="btn btn-secondary btn-md" data-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+ <script>
+    $('#timepicker .time').timepicker({
+        'showDuration': true,
+        'timeFormat': 'g:ia',
+        'className': 'work-hours'
+    });
+</script>
+
+<script>
+    $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip(); 
+               
+    });
+    
+</script>
+

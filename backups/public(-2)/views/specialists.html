@@ -1,0 +1,78 @@
+<!-- Specialists Page -->
+<div id="specialists" class="container" ng-controller="SpecialistsController">
+    <h1 class="header-style text-center text-uppercase">{{company.menuspecialists}}</h1>
+    <hr>
+    <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-8">
+            <div>
+                <input class="form-control input-md" id="formGroupInputLarge" type="text" ng-model="query" placeholder="keyword search" data-toggle="tooltip" data-placement="bottom"> 
+            </div>
+        </div>
+    </div>   
+
+    <section id="specialist-nav-section">
+    <nav class="navbar">
+        <div class="container">
+            <div class="row">
+                <ul class="list-inline inline-block text-center text-uppercase pull-left">
+                    <li><a id="all-specialists" tabindex="0" ng-click="setServiceQueryAll()" class="text-uppercase" ng-style="{{highlightColor}}">All</a></li>
+                    <li ng-repeat="service in services"><a ng-style="{{highlightColor}}" tabindex={{$index+1}} ng-click=setServiceQuery(service.servicecategory) class="text-uppercase">{{service.servicecategory}}</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    </section>     
+    
+    <div class="row">
+        <div ng-repeat="staffmember in users | filter:query | filter: {active:true} | orderBy: staffOrder:ascending">
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                <div class="specialist-container">
+                    <a href="#specialist-detail/{{staffmember.regUser}}">
+                        <div class="specialist-image-container">
+                            <img class="hidden-xs" ng-if="staffmember.profilepic == undefined || staffmember.profilepic.length == 0" ng-src="/images/default.png" id={{staffmember.regUID}} width='370' height='370'>
+                            <img class="hidden-xs" ng-if="staffmember.profilepic.length > 0" ng-src="{{staffmember.profilepic}}" id={{staffmember.regUID}} width='370' height='370'>
+                            
+                            <img class="visible-xs img-responsive" ng-if="staffmember.profilepic == undefined" ng-src="/images/default.png" id={{staffmember.regUser}} width='280' height='280'>
+                            <img class="visible-xs" ng-if="staffmember.profilepic.length > 0" ng-src="{{staffmember.profilepic}}" id={{staffmember.regUser}} width='280' height='280'>
+                            
+                            <div class="hidden-xs specialist-overlay" ng-style="{{highlightBackColor}}">
+                                <div class="specialist-text text-uppercase">View Profile</div>
+                            </div>
+                            
+                            <div class="visible-xs specialist-overlay-xs" ng-style="{{highlightBackColor}}">
+                                <div class="specialist-text text-uppercase">View Profile</div>
+                            </div>
+                        </div>
+                    </a>
+                    <div class="text-uppercase" id="specialist-name">{{staffmember.firstname}} {{staffmember.lastname}}</div>
+                    <div class="text-uppercase" id="specialist-title">{{staffmember.title}}</div>
+                    <div id="specialist-call">Call {{staffmember.mobile}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
+
+<!-- Return to Top -->
+<a href="#" id="return-to-top"><i class="icon-chevron-up"></i></a>
+
+<script>    
+    // ===== Scroll to Top ==== 
+    $(window).scroll(function () {
+        if ($(this).scrollTop() >= 50) { // If page is scrolled more than 50px
+            $('#return-to-top').fadeIn(200); // Fade in the arrow
+        }
+        else {
+            $('#return-to-top').fadeOut(200); // Else fade out the arrow
+        }
+    });
+    $('#return-to-top').click(function (e) { // When arrow is clicked
+        e.preventDefault();
+        $('body,html').animate({
+            scrollTop: 0 // Scroll to top of body
+        }, 500);
+    });
+</script>
+
+<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+

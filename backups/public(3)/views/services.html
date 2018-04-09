@@ -1,0 +1,86 @@
+<!-- Services Page -->
+<div id="services" ng-controller="ServicesController">
+    <h1 class="header-style text-center text-uppercase">{{company.menuservices}}</h1>
+    <section id="services-section" ng-repeat="service in services | orderBy:'servicecategory'">
+        <div class="container-fluid">
+            <div class="container">
+                <div class="row">
+                    <h1 id="{{service.servicecategory}}01" class="text-uppercase servcat">{{service.servicecategory}}</h1>
+                    <div ng-show='homeServicesBackLink'><a class='text-uppercase' ng-style="{{highlightColor}}" ng-href='#main/main-section'><i style="display:inline-block;
+      vertical-align:-3px; font-size:24px; margin-left:-20px;" class="fa fa-chevron-circle-left"></i> Back</a></div>
+                    <hr>
+                    <div class="hidden-xs col-lg-4 col-md-4 col-sm-4"><img style="margin-left:-14px;" class="img-responsive" ng-src="{{service.picURL}}"></div> <img class="visible-xs img-responsive center-block" ng-src="{{service.picURL}}">
+                    <div class="col-lg-8 col-md-8 col-sm-8" ng-bind-html="service.description | html"></div> <a ng-style="{{highlightColor}}"  href="#specialists/{{service.servicecategory}}" class="text-uppercase"> View our {{company.menuspecialists}}</a>
+                    <div class="col-lg-12"></div>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="searchbox">
+                                <input class="form-control input-md" type="text" ng-model="userquery" placeholder="keyword search" data-toggle="tooltip" data-placement="bottom"> </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12"></div>
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <tbody ng-repeat="s1 in services | orderBy:'s1.servicecategory'">
+                                        <tr ng-repeat="s2 in s1.servicelist | orderBy:['category','name'] | filter:userquery">
+                                            <td ng-show="service.servicecategory === s2.servicecategory"><span class="mytabstyle pull-left text-uppercase">{{s2.category}}</span></td>
+                                            <td ng-show="service.servicecategory === s2.servicecategory"><span class="mytabstyle center-block text-uppercase">{{s2.name}}</span></td>
+                                            <td ng-show="service.servicecategory === s2.servicecategory"><span class="mytabstyle pull-right">{{s2.pricing}}</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid services-jumbotron">
+                <div class="container">
+                    <div class="row">
+                        <h3 class="text-uppercase">{{service.servicecategory}} Specialists</h3>
+                        <div style="margin-left:-8px;">
+                            <div ng-repeat="specialist in specialists | filter:service.servicecategory" style="display:inline-block;">
+                                <div class="service-container">
+                                    <a href="#specialist-detail/{{specialist.regUser}}">
+                                        <div class="service-image-container"> <img ng-if="specialist.profilepic.length > 0" ng-src="{{specialist.profilepic}}" id={{staffmember.regUser}} width='170' height='170'> <img ng-if="specialist.profilepic == undefined" ng-src="/images/default.png" id={{staffmember.regUser}} width='170' height='170'>
+                                            <div class="service-overlay" ng-style="{{highlightBackColor}}">
+                                                <div class="service-text text-uppercase">{{specialist.firstname}} {{specialist.lastname}}</div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+<!-- Return to Top -->
+<a href="#" id="return-to-top"><i class="icon-chevron-up"></i></a>
+
+<script>    
+    // ===== Scroll to Top ==== 
+    $(window).scroll(function () {
+        if ($(this).scrollTop() >= 50) { // If page is scrolled more than 50px
+            $('#return-to-top').fadeIn(200); // Fade in the arrow
+        }
+        else {
+            $('#return-to-top').fadeOut(200); // Else fade out the arrow
+        }
+    });
+    $('#return-to-top').click(function (e) { // When arrow is clicked
+        e.preventDefault();
+        $('body,html').animate({
+            scrollTop: 0 // Scroll to top of body
+        }, 500);
+    });
+</script>
+
+<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">

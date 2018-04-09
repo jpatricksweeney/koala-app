@@ -1,0 +1,82 @@
+<!-- Service Detail Page -->
+<div id="service-detail-page" ng-controller="ServiceDetailController">
+        
+    <h1 class="header-style text-center text-uppercase">{{servicename}}</h1>
+    <hr align="center" width="98%" style="margin:auto; margin-bottom:60px;">
+    <section id="service-detail-section" ng-repeat="service in services | orderBy:'servicecategory'">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-4"><img class="img-fluid rounded" ng-src="{{service.picURL}}"></div>
+                <div class="col-lg-8 col-md-8 col-sm-8" ng-bind-html="service.description | html"></div> 
+                <div id='service-detail-query' class="col-md-4 col-sm-12 searchbox form-group input-lg">
+                    <input class="form-control input-lg" type="text" ng-model="userquery" placeholder="keyword search" data-toggle="tooltip" data-placement="bottom"> 
+                </div>
+                <div class='col-sm-12'></div>
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="table-responsive ml-3 mr-3">
+                            <table class="table table-striped">
+                                <tbody ng-repeat="s1 in services | orderBy:'s1.servicecategory'">
+                                    <tr ng-repeat="s2 in s1.servicelist | orderBy:['category','name'] | filter:userquery">
+                                        <td><span class="pull-left"><a class='btn btn-md btn-secondary' ng-click="bookService(s2)">Book</a></span></td>
+                                        <td ng-show="service.servicecategory === s2.servicecategory"><span class="pull-left">{{s2.category}}</span></td>
+                                        <td ng-show="service.servicecategory === s2.servicecategory"><span class="center-block">{{s2.name}}</span></td>
+                                        <td ng-show="service.servicecategory === s2.servicecategory"><span class="pull-right">{{s2.pricing}}</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class='col-sm-12' id='service-detail-page-specialists'>
+                    <h3 class="text-uppercase">{{service.servicecategory | removelastchar}} {{company.menuspecialists}}</h3>
+                
+                <!--div class='col-sm-12'></div-->
+                
+                <div class='ml-2'>
+                    <div ng-repeat="specialist in specialists | filter:service.servicecategory | filter: {active:true}" style="display:inline-block;">
+                        <a href="#specialist-detail/{{specialist.regUser}}">
+                            <div class="service-image-container"> 
+                                <img ng-if="specialist.profilepic.length > 0" ng-src="{{specialist.profilepic}}" id={{staffmember.regUser}} width='auto' height='170' class='rounded'> <img ng-if="specialist.profilepic == undefined" ng-src="/images/default.png" id={{staffmember.regUser}} width='auto' height='170' class='rounded'>
+                                <div class="service-overlay" ng-style="{{highlightBackColor}}">
+                                    <div class="service-text">{{specialist.firstname}} {{specialist.lastname}}</div>
+                                </div>
+                            </div>
+                        </a>
+                    </div> 
+                </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    
+<!-- Modal -->
+<div class="modal fade" id="mySelectSpecialistModal" tabindex="-1" role="dialog" aria-labelledby="selectSpecialist" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Select a {{company.menuspecialists | removelastchar}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">     
+          <div ng-repeat="specialist in specialists | filter:servicename | filter: {active:true}">
+              <div>
+                <p><button  type="button" class="btn btn-secondary btn-md btn-block" data-dismiss="modal" ng-click='selectSpecialist(specialist)'>{{specialist.firstname}} {{specialist.lastname}}</button></p>
+              </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id='selectSpec' class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>    
+    
+    
+</div>
+
+

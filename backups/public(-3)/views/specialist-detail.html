@@ -1,0 +1,135 @@
+<!-- Specialst Detail Page -->
+<div id="specialist-detail" ng-controller="SpecialistDetailController">
+        <div class="container-fluid">
+            <div class="row">
+                <div id="specialist-detail-img" class="col-xl-5 col-lg-4 col-md-12 col-sm-12 col-xs-12">
+                    <div><img ng-if="specialist.profilepic == undefined || specialist.profilepic.length == 0" class="img-fluid center-block rounded" ng-src="/images/default.png"><img ng-if="specialist.profilepic == undefined || specialist.profilepic.length > 0" class="img-fluid center-block rounded" ng-src={{specialist.profilepic}}></div>
+                </div>
+                <div id="specialist-detail-personal-info" class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <h1>{{specialist.firstname}} {{specialist.lastname}}</h1>
+                    <h3>{{specialist.title}}</h3>
+                    <div>{{specialist.mobile}}</div>
+                    <div> <a ng-show='specialist.facebook' target="_blank" href="{{specialist.facebook}}"><i href="#" class="fa fa-facebook rounded"></i></a> <a ng-show='specialist.twitter' target="_blank" href="{{specialist.twitter}}"><i href="#" class="fa fa-twitter rounded" style='padding-left:17px;'></i></a> <a ng-show='specialist.instagram' target="_blank" href="{{specialist.instagram}}"><i href="#" class="fa fa-instagram rounded" style='padding-left:17px;'></i></a> <a ng-show='specialist.google' target="_blank" href="{{specialist.google}}"><i href="#" class="fa fa-google rounded" style='padding-left:17px;'></i></a> <a ng-show='specialist.email' href="mailto:{{specialist.email}}"><i href="#" class="fa fa-envelope rounded" style='padding-left:16px;'></i></a> <a ng-show='specialist.website' target="_blank" href="http://{{specialist.website}}"><i href="#" class="fa fa-globe rounded" style='padding-left:16px;'></i></a> 
+                    </div>
+                    <a href="#appointment/{{specialist.regUser}}">
+                        <button type="button" class="button text-uppercase btn" style='border-radius:5px;'>book</button>
+                    </a>
+                </div>
+                <div class='col-xl-12 col-lg-12 col-md-12 col-sm-12' style='margin-top:20px; margin-left:-12px;'>
+                    <!-- Tab nav -->
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item"> <a class="nav-link active" data-toggle="tab" data-target="#specialist-about">About</a> </li>
+                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" data-target="#specialist-services">{{company.menuservices}}</a> </li>
+                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" data-target="#specialist-hours">Hours</a> </li>
+                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" data-target="#specialist-gallery">Gallery</a> </li>
+                    </ul>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" id="specialist-about" role="tabpanel">
+                            <div ng-bind-html='specialist.about | html'></div>
+                        </div>
+                        <div class="tab-pane fade" id="specialist-services" role="tabpanel">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <tbody>
+                                        <tr ng-repeat="s1 in specialist.myservices | orderBy:['servicecategory','category','name'] | filter:servquery">
+                                            <td><span class="pull-left"><a class='btn btn-md btn-secondary' href="#appointment/{{specialist.regUser}}/{{s1.name}}">Book</a></span></td>
+                                            <td><span class="center-block">{{s1.category  }}</span></td>
+                                            <td><span class="center-block">{{s1.name}}</span></td>
+                                            <td><span class="center-block">{{s1.pricing}}</span></td>
+                                            <td><span class="pull-right"><a class='btn btn-md btn-secondary' ng-hide="s1.description.length==0" ng-click='showDescription(s1)'> more info</a></span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="specialist-hours" role="tabpanel">
+                            <div class='row'>
+                                <div class='col-xl-4 col-md-6 col-xs-12'>
+                                    <div class='table-responsive' style='margin-left:-8px;'>
+                                        <table class="table table-striped">
+                                            <tbody>
+                                                <tr ng-if='specialist.monday.on' class='mytabstyle'>
+                                                    <td>Monday</td>
+                                                    <td>{{specialist.monday.start}}</td>
+                                                    <td>{{specialist.monday.end}}</td>
+                                                </tr>
+                                                <tr ng-if='specialist.tuesday.on' class='mytabstyle'>
+                                                    <td>Tuesday</td>
+                                                    <td>{{specialist.tuesday.start}}</td>
+                                                    <td>{{specialist.tuesday.end}}</td>
+                                                </tr>
+                                                <tr ng-if='specialist.wednesday.on' class='mytabstyle'>
+                                                    <td>Wednesday</td>
+                                                    <td>{{specialist.wednesday.start}}</td>
+                                                    <td>{{specialist.wednesday.end}}</td>
+                                                </tr>
+                                                <tr ng-if='specialist.thursday.on' class='mytabstyle'>
+                                                    <td>Thursday</td>
+                                                    <td>{{specialist.thursday.start}}</td>
+                                                    <td>{{specialist.thursday.end}}</td>
+                                                </tr>
+                                                <tr ng-if='specialist.friday.on' class='mytabstyle'>
+                                                    <td>Friday</td>
+                                                    <td>{{specialist.friday.start}}</td>
+                                                    <td>{{specialist.friday.end}}</td>
+                                                </tr>
+                                                <tr ng-if='specialist.saturday.on' class='mytabstyle'>
+                                                    <td>Saturday</td>
+                                                    <td>{{specialist.saturday.start}}</td>
+                                                    <td>{{specialist.saturday.end}}</td>
+                                                </tr>
+                                                <tr ng-if='specialist.sunday.on' class='mytabstyle'>
+                                                    <td>Sunday</td>
+                                                    <td>{{specialist.sunday.start}}</td>
+                                                    <td>{{specialist.sunday.end}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="specialist-gallery" role="tabpanel">
+                            <div id="gallery-pics">
+                                <div class='container-fluid'>
+                                    <div class='row'>
+                                        <div ng-repeat="pic in specialist.mygallery" class='col-xs-12'>
+                                            <figure style='border:none !important'>
+                                                <a href="{{pic.url}}" data-fancybox="group" data-caption=""><img src="{{pic.url}}" class="img-fluid" alt="" /></a>
+                                            </figure>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalDescription" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="vertical-alignment-helper">
+        <div class="modal-dialog vertical-align-center">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                     <h4 class="modal-title text-uppercase" id="myModalLabel"></h4>
+                     <div class='mytabstyle' id="myModalMessage"></div>
+                </div>
+                <div id='modalDescHere' class="modal-body mytabstyle">...</div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+

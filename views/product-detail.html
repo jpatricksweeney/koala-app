@@ -1,0 +1,39 @@
+<!-- Product Detail Page -->
+<div id="product-detail-page" ng-controller="ProductDetailController">
+        
+    <h1 class="header-style text-center">{{product.name}}</h1>
+    <hr align="center" width="98%" style="margin:auto; margin-bottom:60px;">
+    <section>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-3 col-md-4 col-sm-4"><img class="img-fluid rounded z-depth-3" src="{{product.picURL}}"></div>
+                <div class="col-lg-9 col-md-8 col-sm-8 mt-5">
+                    <h5>{{product.name}} <span ng-if='product.brand.length > 0'>by {{product.brand}}</span></h5>
+                    <div ng-bind-html="product.description | html"></div>
+                    <span class='clearfix'>Price: {{product.price}}</span>                 
+                    <div class='row'>
+                        <div class='col-xl-4 col-lg-6 col-md-5 col-sm-12'>
+                            <ngcart-addtocart id="{{productID}}" name="{{product.name}}" price="{{product.price}}" quantity='1' quantity-max='30'></ngcart-addtocart>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class='col-12'></div>
+    <div class='container-fluid'>
+        <div class='row'>
+            <div class='col-xs-12' style='margin-top:60px;'>
+                <figure style='border:none !important'>
+                    <a href="{{product.gallery1URL}}" data-fancybox="group" data-caption=""><img ng-src="{{product.gallery1URL}}" class="img-fluid rounded z-depth-3" alt="" /></a>
+                </figure>
+                <figure style='border:none !important'>
+                    <a href="{{product.gallery2URL}}" data-fancybox="group" data-caption=""><img ng-src="{{product.gallery2URL}}" class="img-fluid rounded z-depth-3" alt="" /></a>
+                </figure>
+                <figure style='border:none !important'>
+                    <a href="{{product.gallery3URL}}" data-fancybox="group" data-caption=""><img ng-src="{{product.gallery3URL}}" class="img-fluid rounded z-depth-3" alt="" /></a>
+                </figure>
+            </div>
+        </div>
+    </div>
+</div>

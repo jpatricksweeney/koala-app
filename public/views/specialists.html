@@ -1,0 +1,33 @@
+<!-- Specialists Page -->
+<div id="specialists-content" ng-controller="SpecialistsController">
+    <div class="container-fluid">
+        <div class="row">
+
+            <div ng-show='company.search.on' class='col-sm-12 searchbox input-group'>
+                <input class="form-control input-md mb-1" type="text" ng-model="searchquery" placeholder="search" data-toggle="tooltip" data-placement="bottom"> 
+            </div>                        
+
+            <div class='col-12'></div>
+
+            <div ng-repeat="staffmember in users | filter:searchquery | filter: {active:true} | orderBy: staffOrder:ascending" class='col-lg-4 col-md-6 card-deck mb-5'>
+                <div class='card mb-3'>
+                    <a ng-href="#specialist-detail/{{staffmember.regUser}}"> <img ng-src="{{staffmember.profilepic}}" class="img-fluid card-img-top m-0" alt="{{service.servicecategory}}"> </a>
+                    <div class='card-block'>
+                        <h3 class='card-title'><a ng-href="#specialist-detail/{{staffmember.regUser}}">{{staffmember.firstname}} {{staffmember.lastname}}</a><span ng-show='staffmember.hasHoursToday==true' class="badge badge-primary pull-right" style='font-weight:100;'><a style='color:#fff;' ng-href='#appointment/{{staffmember.regUser}}'>Openings today!</a></span></h3>
+                        <div class="card-text">
+                            <h4 class='text-muted'>{{staffmember.title}}</h4>
+                            <p class='text-muted'>{{staffmember.mobile}}</p>
+                            <!--span ng-bind-html="(staffmember.about | limitTo:180 | html) + '...'"></span-->
+                        </div>
+                    </div>
+                    <div class='card-footer'> <a ng-href='#appointment/{{staffmember.regUser}}' class="btn btn-elegant btn-md btn-block" role="button" aria-pressed="true">Book an appointment</a>                        
+                        <!--a ng-href='#specialist-detail/{{staffmember.regUser}}' class="btn btn-secondary btn-md pull-right" role="button" aria-pressed="true">More...</a-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+ 
+
+

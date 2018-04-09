@@ -1,0 +1,167 @@
+<span class="container-fluid" ng-controller="MainController">
+        
+    <div ng-show='company.header.on' id="bannersection">
+        <div ng-show='company.headertitle || company.headermessage' class="bannercontent">
+            <h1>{{company.headertitle}}</h1>
+            <p>{{company.headermessage}}</p>
+        </div>
+    </div>           
+        
+    <!-- Company description -- this content is completed by admin via TinyMCE editor -->
+    <section ng-show='company.description.on' id="main-description">
+        <div class='row'>
+            <div class='col-sm-12'>
+                <p class="text-center splash-text" ng-bind-html="company.homepagedescription | html"></p>
+            </div>
+        </div>       
+    </section>   
+    
+    
+    
+
+    
+    <!-- Services section -->
+    <!--section id="main-services-section" class='offset'-->
+        <!--div class="container-fluid"-->
+            <!--div class="row"-->
+                
+                <!--div ng-show='company.search.on' class='col-md-12 searchbox input-group'>
+                    <span class="input-group-addon" id="basic-addon1">Search</span>
+                    <input class="form-control input-md" type="text" ng-model="searchquery" placeholder="" data-toggle="tooltip" data-placement="bottom"> 
+                </div-->
+                
+                <div class='col-12'></div>
+<section id="main-services-section" class='offset'>
+<div style='margin-bottom:20px;' class='container-fluid'>
+    <div class='row'>
+        <div class='col-sm-12'>
+<ul class="nav nav-tabs nav-fill nav-justified">
+    <li ng-show='company.services.on' class="nav-item"><a class="nav-link active" data-toggle="tab" data-target='#services-content'>{{company.menuservices}}</a></li>
+    <li ng-show='company.specialists.on' class="nav-item"><a class="nav-link" ng-class="{'active': !company.services.on}" data-toggle="tab" data-target='#specialists-content'>{{company.menuspecialists}}</a></li>
+    <li ng-show='company.products.on' class="nav-item"><a class="nav-link" data-toggle="tab" data-target='#products-content'>Products</a></li>
+</ul>                
+</div>
+</div>
+</div>                
+                
+<div class="tab-content">
+<div id="services-content" class="tab-pane fade in active show">                
+<div class="container-fluid">
+<div class="row">
+                
+                <div ng-show='company.services.on' ng-repeat='service in services | filter:searchquery' class='col-lg-4 col-md-6 card-deck mb-5'>
+                    <div class='card mb-3'>
+                        <a ng-href='#service-detail/{{service.servicecategory}}'>
+                            <img ng-src="{{service.picURL}}" class="img-fluid m-0" alt="{{service.servicecategory}}">
+                        </a>
+                        <div class='card-block'>
+                            <h3 class='card-title text-uppercase'><a ng-href='#service-detail/{{service.servicecategory}}'>{{service.servicecategory}}</a></h3>
+                            
+                            <div class="card-text">
+                                <p class='text-muted' ng-bind-html="(service.description | limitTo:180 | html) + '...'"></p>
+                            </div>
+                        </div>
+                        <div class='card-footer'>
+                            <a ng-href='#service-detail/{{service.servicecategory}}' class="btn btn-secondary btn-md btn-block" role="button" aria-pressed="true">Book {{service.servicecategory | removelastchar}} {{company.menuservices | removelastchar}}</a>
+                        </div>
+                    </div>
+                </div>
+</div>
+</div>
+</div>
+
+<div id="specialists-content" class="tab-pane fade" ng-class="{'in active show': !company.services.on}"> 
+<div class="container-fluid">
+<div class="row">
+                <div ng-show='company.specialists.on' ng-repeat="staffmember in users | filter:searchquery | filter: {active:true} | orderBy: staffOrder:ascending" class='col-lg-4 col-md-6 card-deck mb-5'>
+                    <div class='card mb-3'>                    
+                        <a ng-href="#specialist-detail/{{staffmember.regUser}}">
+                            <img ng-src="{{staffmember.profilepic}}" class="img-fluid card-img-top m-0" alt="{{service.servicecategory}}">
+                        </a>
+                        <div class='card-block'>
+                            <h3 class='card-title'><a ng-href="#specialist-detail/{{staffmember.regUser}}">{{staffmember.firstname}} {{staffmember.lastname}}</a><span ng-show='staffmember.hasHoursToday==true' class="badge badge-primary pull-right" style='font-weight:100;'><a style='color:#fff;' ng-href='#appointment/{{staffmember.regUser}}'>Openings today!</a></span></h3>
+                            
+                            
+                            <div class="card-text">
+                                <h4 class='text-muted'>{{staffmember.title}}</h4>
+                                <p class='text-muted'>{{staffmember.mobile}}</p>
+                                <!--span ng-bind-html="(staffmember.about | limitTo:180 | html) + '...'"></span-->
+                            </div>
+                        </div>
+                        
+                        <div class='card-footer'>
+                            <a ng-href='#appointment/{{staffmember.regUser}}' class="btn btn-secondary btn-md btn-block" role="button" aria-pressed="true">Book an appointment</a>
+                            <!--a ng-href='#specialist-detail/{{staffmember.regUser}}' class="btn btn-secondary btn-md pull-right" role="button" aria-pressed="true">More...</a-->
+                        </div>                        
+                        
+                    </div>
+                </div>   
+</div>
+</div>
+</div>
+
+
+<div id="products-content" class="tab-pane fade" ng-class="{'in active show': !company.services.on && !company.specialists.on}"> 
+<div class="container-fluid">
+<div class="row">
+    
+                <div ng-show='company.products.on' ng-repeat="product in products  | filter:searchquery" class='col-lg-4 col-md-6 card-deck mb-5'>
+                    
+                    <!-- class='col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-2 card-deck mb-5' -->
+                    <div class='card mb-3'>   
+                        <a ng-href="#product-detail/{{product.$id}}">
+                            <img ng-src="{{product.picURL}}" class="img-fluid card-img-top m-0" alt="product picture">                
+                        </a>
+                        
+                        <div class='card-block'>
+                            <div class="card-text">
+                                <p></p>
+                                <h5 class='text-center'><a ng-href="#product-detail/{{product.$id}}">{{product.prodname}} {{product.prodprice | currency}}</a></h5>
+                            </div>
+                        </div>
+                        
+                        <div class='card-footer'>
+                            <!--h5 class='text-center'><a ng-href="#product-detail/{{product.$id}}">{{product.prodname}} {{product.prodprice | currency}}</a></h5-->
+                            
+                            <ngcart-addtocart id="{{product.$id}}" name="{{ product.prodname }}" price="{{ product.prodprice }}" quantity='1' quantity-max='{{product.prodquantity}}'></ngcart-addtocart>
+                            
+                        </div>                        
+                    </div>
+                </div>                     
+            </div>
+    
+</div>
+</div>
+</div>
+<!--/div--> 
+
+        <!--/div-->
+</section>      
+    
+    <!-- Gallery section -->
+    <section ng-show='company.gallery.on' id="main-gallery">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="text-center" style='margin-left: auto; margin-right: auto;'>
+                <span ng-repeat='gallerypic in company.gallerypics'>
+                    <figure>
+                        <a href={{gallerypic.url}} data-fancybox="group" data-caption="">
+                        <img class="img-fluid" ng-src={{gallerypic.url}} alt="" /></a>
+                    </figure>
+                </span>
+                </div>
+            </div>
+        </div>
+    </section>    
+    
+  
+    <div ng-show='company.map.on' ng-controller="ContactController" style='margin-bottom:-40px;'>
+        <iframe style="width: 100vw;height: 50vh;position: relative;" ng-src="{{company.googlemapiframe}}" allowfullscreen></iframe>
+    </div> 
+
+</span>
+    
+    
+
+
+

@@ -1,0 +1,146 @@
+<div id="appointment-page" ng-controller="AppointmentController">
+    <div class="container-fluid">
+        
+        <h1 ng-show="!sessionbooked && !selectingService" class="text-center">Select Date &amp; Time</h1>
+        
+        <h1 ng-show="!sessionbooked && selectingService" class="text-center">Select {{company.menuservices | removelastchar}}</h1>
+        
+        <h1 ng-show="sessionbooked" class="text-center">Your booking is complete!</h1>
+        <hr>
+        
+        <p id='statusmessage' class='text-center'><span ng-hide='selectingService'><strong>{{selectItem.name}}</strong></span> with {{specialist.firstname}} {{specialist.lastname}} <span ng-hide='selectingService'> ({{serviceTime}} minutes)</span></p>
+        
+        <div ng-if='clientID == staffID' class="alert alert-info" role="alert">
+            <strong>You are in blocking mode!</strong> This allows you to block timeslots and make them unavailble to clients for booking.
+        </div>
+        
+        <div ng-show='selectingService && !sessionbooked'>
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="searchbox">
+                        <input class="form-control input-md" type="text" ng-model="userquery" placeholder="keyword search" data-toggle="tooltip" data-placement="bottom"> 
+                    </div>
+                </div>
+            </div>
+
+            <div ng-repeat="item in items | orderBy:['category','name'] | filter:userquery">
+                <div class='row'>
+                <div class='col-sm-12'>
+                <button id='myaccord' class="accordion" ng-click="accordionHandler($event, item)">{{item.name}}</button>
+                <div class="panel">
+                  <span ng-bind-html="item.description"></span>
+                    <div class="float-left mt-1 mb-1" >{{item.pricing}}   (<span ng-hide='item.hours=="0 hrs"'>{{item.hours}}</span><span ng-show='item.hours!="0 hrs" && item.minutes!="0 mins"'> </span><span ng-hide='item.minutes=="0 mins"'>{{item.minutes}}</span>)</div>
+                    <button  type="button" class="btn btn-secondary float-right  mt-1 mb-1" ng-click='selectService(item)'>Select Service</button>
+                </div>
+                </div> 
+                </div>
+            </div>
+        </div>    
+        
+        <div id='dateselect' ng-show='!selectingService  && !sessionbooked'>
+            <div class="row">
+                <div id='calendarselect' class="col-lg-4 col-md-5 col-sm-12">
+                    <span class='text-center'>Selected date: <strong>{{selectDate}}</strong></span>
+                    <div id='mycalendar'>
+                        <div id="datepicker"></div>
+                    </div>
+                    <!--span ng-show="firstAvailable">First Available:</span><div>{{firstAvailable}}</div-->
+                </div> 
+
+                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-6">
+                    <h4 class='text-center col-xs-12'>Morning</h4>
+                    <div class='text-center' ng-repeat="day in days">
+                        <div class="time-slot" ng-repeat="slot in day.timeslots">
+                            <span ng-if='isMorningTime(slot)'>
+                                <input ng-click="confirmBooking(slot)" type="checkbox" id="{{ day.dow }}-{{ $index }}" ng-model="slot.booked" ng-disabled="slot.booked">
+                                <label ng-if="!slot.booked" for="{{ day.dow }}-{{ $index }}" ng-style="{{highlightBackgroundColor}}">{{ slot.start }}
+                                <br> <span ng-if="slot.booked">Booked</span> <span ng-if="!slot.booked">Available</span> </label>
+                                <label ng-if="slot.booked" for="{{ day.dow }}-{{ $index }}">{{ slot.start }}
+                                <br> <span ng-if="slot.booked">Booked</span> <span ng-if="!slot.booked">Available</span> </label>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-6">
+                    <h4 class='text-center col-xs-12'>Afternoon</h4>
+                    <div class='text-center' ng-repeat="day in days">
+                        <div class="time-slot" ng-repeat="slot in day.timeslots">
+                            <span ng-if='isAfternoonTime(slot)'>
+                                <input ng-click="confirmBooking(slot)" type="checkbox" id="{{ day.dow }}-{{ $index }}" ng-model="slot.booked" ng-disabled="slot.booked">
+                                <label ng-if="!slot.booked" for="{{ day.dow }}-{{ $index }}" ng-style="{{highlightBackgroundColor}}">{{ slot.start }}
+                                <br> <span ng-if="slot.booked">Booked</span> <span ng-if="!slot.booked">Available</span> </label>
+                                <label ng-if="slot.booked" for="{{ day.dow }}-{{ $index }}">{{ slot.start }}
+                                <br> <span ng-if="slot.booked">Booked</span> <span ng-if="!slot.booked">Available</span> </label>   
+                            </span>
+                        </div>
+                    </div>
+                </div>     
+                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-6">
+                    <h4 class='text-center col-xs-12'>Evening</h4>
+                    <div class='text-center' ng-repeat="day in days">
+                        <div class="time-slot" ng-repeat="slot in day.timeslots">
+                            <span ng-if='isEveningTime(slot)'>
+                                <input ng-click="confirmBooking(slot)" type="checkbox" id="{{ day.dow }}-{{ $index }}" ng-model="slot.booked" ng-disabled="slot.booked">
+                                <label ng-if="!slot.booked" for="{{ day.dow }}-{{ $index }}" ng-style="{{highlightBackgroundColor}}">{{ slot.start }}
+                                <br> <span ng-if="slot.booked">Booked</span> <span ng-if="!slot.booked">Available</span> </label>
+                                <label ng-if="slot.booked" for="{{ day.dow }}-{{ $index }}">{{ slot.start }}
+                                <br> <span ng-if="slot.booked">Booked</span> <span ng-if="!slot.booked">Available</span> </label>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-6">
+                    <div ng-repeat="day in days">
+                        <div class="time-slot" ng-repeat="slot in day.timeslots">
+                            <span ng-if='isLateTime(slot)'>
+                                <input ng-click="confirmBooking(slot)" type="checkbox" id="{{ day.dow }}-{{ $index }}" ng-model="slot.booked" ng-disabled="slot.booked">
+                                <label ng-if="!slot.booked" for="{{ day.dow }}-{{ $index }}" ng-style="{{highlightBackgroundColor}}">{{ slot.start }}
+                                <br> <span ng-if="slot.booked">Booked</span> <span ng-if="!slot.booked">Available</span> </label>
+                                <label ng-if="slot.booked" for="{{ day.dow }}-{{ $index }}">{{ slot.start }}
+                                <br> <span ng-if="slot.booked">Booked</span> <span ng-if="!slot.booked">Available</span> </label>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+        </div>
+        
+        <div id='sessbooked' ng-show='sessionbooked'>
+            <div class="row">
+                <div class='col-sm-12 text-center'>
+                    <h4>Booking details:</h4>
+                    <br>
+                    <p><strong>{{specialist.firstname}} {{specialist.lastname}}</strong></p>
+                    <p><strong>{{selectItem.name}} ({{serviceTime}} minutes)</strong></p>
+                    <p><strong>{{selectDate | date: 'fullDate'}} at {{selectTime}}</strong></p>
+                    <br>
+                    <p>A confirmation email has been sent to your inbox.</p>
+                    <p> Thank you!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Booking Confirm Modal -->
+<div class="modal fade" id="modalBookingConfirm">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p id="modalSuccessAlert-body"></p>
+            </div>
+            <p class="text-center" style="font-size:2.25em">Appointment Details:</p>
+            <div style="text-align: center">
+                <p style="font-size:2.2em" class="text-muted">{{specialist.firstname}} {{specialist.lastname}}</p>
+                <p style="font-size:2em" id="confservice" class="center-text text-muted"></p>
+                <p style="font-size:1.8em" id="confbookdate" class="center-text text-muted"></p>
+            </div>
+            <div class="modal-footer"><span id="modalDeleteConfirm-footer" class="pull-left">Confirm your appointment?</span>
+                <button type="button" id="pf_modalYes" class="btn btn-success btn-md" data-dismiss="modal">Yes</button>
+                <button type="button" id="pf_modalNo" class="btn btn-secondary btn-md" data-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

@@ -1,0 +1,100 @@
+<!-- Get in touch section -->
+<section id="in-touch" ng-controller="ContactController">
+    <h1 class="header-style text-center text-uppercase">Contact</h1>
+    <div class="container">
+        <div class="row">
+            
+            <hr width="98%" align="center">
+            <div class="col-lg-4 col-sm-6">
+                <div class="address-style text-uppercase">
+                    <div class="heavy-style">{{company.number}}
+                        <br>
+                    </div> <address>
+                    {{company.name}}<br>
+                    {{company.address}}<br>
+                    {{company.city}}, {{company.state}} {{company.zip}}<br>
+                </address>
+                    <div><a ng-style="{{highlightColor}}" target="_blank" href="{{company.googlemap}}">Google Map</a></div>
+                    <div>
+                        <br> <span class="heavy-style">Hours</span>
+                        <br>
+                        <table>
+                            <tr ng-show='company.monday.on'>
+                                <td>Monday</td>
+                                <td><span>{{company.monday.start}} - {{company.monday.end}}</span></td>
+                            </tr>
+                            <tr ng-show='company.tuesday.on'>
+                                <td>Tuesday:</td>
+                                <td><span>{{company.tuesday.start}} - {{company.tuesday.end}}</span></td>
+                            </tr>
+                            <tr ng-show='company.wednesday.on'>
+                                <td>Wednesday:</td>
+                                <td><span>{{company.wednesday.start}} - {{company.wednesday.end}}</span></td>
+                            </tr>
+                            <tr ng-show='company.thursday.on'>
+                                <td>Thursday:</td>
+                                <td><span>{{company.thursday.start}} - {{company.thursday.end}}</span></td>
+                            </tr>
+                            <tr ng-show='company.friday.on'>
+                                <td>Friday:</td>
+                                <td><span>{{company.friday.start}} - {{company.friday.end}}</span></td>
+                            </tr>
+                            <tr ng-show='company.saturday.on'>
+                                <td>Saturday:</td>
+                                <td><span>{{company.saturday.start}} - {{company.saturday.end}}</span></td>
+                            </tr>
+                            <tr ng-show='company.sunday.on'>
+                                <td>Sunday:</td>
+                                <td><span>{{company.sunday.start}} - {{company.sunday.end}}</span></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="address-style text-uppercase">
+                    <br> <span class="heavy-style">General Inquiries:</span>
+                    <br> <a href="mailto:{{company.email}}">{{company.email}}</a> 
+                </div>
+                <div>
+                    <a style="margin-right:-7px;" target="_blank" href="https://www.facebook.com/{{company.facebook}}/"><img height="65" width="65" src="/images/icons/fb-icon.svg" onmouseover="this.src='/images/icons/fbg-icon.svg'" onmouseout="this.src='/images/icons/fb-icon.svg'"></a>
+                    
+                    <a style="margin-right:-6px;" target="_blank" href="https://plus.google.com/{{company.google}}"><img style="margin-right:0px;" height="65" width="65" src="/images/icons/google-icon.svg" onmouseover="this.src='/images/icons/googleg-icon.svg'" onmouseout="this.src='/images/icons/google-icon.svg'"></a>
+                    
+                    <a style="margin-right:-7px;" target="_blank" href="https://www.instagram.com/{{company.instagram}}/"><img height="65" width="65" style="margin-left:-1px;" src="/images/icons/instagram-icon.svg" onmouseover="this.src='/images/icons/instagramg-icon.svg'" onmouseout="this.src='/images/icons/instagram-icon.svg'"></a>
+                    
+                    <a target="_blank" href="http://www.twitter.com/{{company.twitter}}"><img height="65" width="65" src="/images/icons/twitter-icon.svg" onmouseover="this.src='/images/icons/twitterg-icon.svg'" onmouseout="this.src='/images/icons/twitter-icon.svg'"></a>
+                </div>
+            </div>
+            <div id="in-touch-google-map" class="col-lg-8 col-sm-6">
+                <iframe width="600" height="450" frameborder="0" style="border:0" ng-src="{{company.googlemapiframe}}" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+</section> 
+
+
+<script>
+  window.scrollTo(0, 0);
+</script>
+
+<!-- Return to Top -->
+<a href="#" id="return-to-top"><i class="icon-chevron-up"></i></a>
+
+<script>    
+    // ===== Scroll to Top ==== 
+    $(window).scroll(function () {
+        if ($(this).scrollTop() >= 50) { // If page is scrolled more than 50px
+            $('#return-to-top').fadeIn(200); // Fade in the arrow
+        }
+        else {
+            $('#return-to-top').fadeOut(200); // Else fade out the arrow
+        }
+    });
+    $('#return-to-top').click(function (e) { // When arrow is clicked
+        e.preventDefault();
+        $('body,html').animate({
+            scrollTop: 0 // Scroll to top of body
+        }, 500);
+    });
+</script>
+
+<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">

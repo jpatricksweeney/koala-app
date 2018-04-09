@@ -1,0 +1,7 @@
+{
+    "jscodehints.detectedExclusions": [
+        "/Users/patsweeney/Desktop/koala/public/js/ui-bootstrap-tpls-2.5.0.min.js",
+        "/Users/patsweeney/Desktop/koala/public/js/spin.min.js",
+        "/Users/patsweeney/Desktop/koala/public-old/js/controllers/appointment.js"
+    ]
+}
